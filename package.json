@@ -11,8 +11,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.1.18",
+    "appcenter": "5.0.2",
+    "appcenter-analytics": "5.0.2",
+    "appcenter-cli": "^3.0.1",
+    "appcenter-crashes": "5.0.2",
     "react": "18.3.1",
-    "react-native": "0.75.4"
+    "react-native": "0.75.4",
+    "react-native-code-push": "^9.0.0",
+    "react-native-safe-area-context": "^4.11.0",
+    "react-native-screens": "^3.34.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
