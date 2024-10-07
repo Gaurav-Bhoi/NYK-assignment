@@ -1,5 +1,7 @@
 const Screens = {
-  Signup: 'Signup',
+  SignupRoute: 'SignupRoute',
+  WelcomeScreen: 'WelcomeScreen',
+  SignupSection: 'SignupSection',
 };
 
 export default Screens;

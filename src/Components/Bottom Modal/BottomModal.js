@@ -1,23 +1,47 @@
-import {Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
-import React, {useState} from 'react';
+import {
+  Animated,
+  Dimensions,
+  Easing,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
 import Colors from '../../Assets/Colors';
 import {Responsive} from '../../Assets/Responsive';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const BottomModal = ({
   children,
-  modalVisible = true,
+  modalVisible = false,
   showDragger = true,
   showCloseButton = true,
+  autoClose = false,
+  startAnimation = undefined,
 }) => {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(modalVisible);
+  const slideAnim = useRef(new Animated.Value(0)).current;
+  const {width} = Dimensions.get('screen');
 
+  useEffect(() => {
+    if (modalVisible && startAnimation) {
+      Animated.timing(slideAnim, {
+        toValue: startAnimation === 'slide-to-left' ? width : -width,
+        easing: Easing.linear,
+        delay: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [startAnimation, modalVisible, slideAnim, width]);
   const onPressClose = () => {
     setIsModalVisible(false);
   };
 
   const onPressAutoClose = () => {
-    setIsModalVisible(false);
+    if (autoClose) {
+      setIsModalVisible(false);
+    }
   };
 
   const dragger = () => {
@@ -49,7 +73,7 @@ const BottomModal = ({
 
   return (
     <Modal
-      animationType="slide"
+      animationType="none"
       visible={isModalVisible}
       transparent={true}
       onRequestClose={onPressClose}>
@@ -58,10 +82,17 @@ const BottomModal = ({
         activeOpacity={1}
         onPressOut={onPressAutoClose}
       />
-      <View style={styles.centeredView}>
+
+      <View style={[styles.centeredView]}>
         {dragger()}
         {closeButton()}
-        {children}
+        <Animated.View
+          style={[
+            styles.animViewStyle,
+            {transform: [{translateX: slideAnim}]},
+          ]}>
+          {children}
+        </Animated.View>
       </View>
     </Modal>
   );
@@ -71,7 +102,7 @@ export default BottomModal;
 
 const styles = StyleSheet.create({
   centeredView: {
-    height: '70%',
+    height: '60%',
     bottom: 0,
     position: 'absolute',
     width: '100%',
@@ -97,6 +128,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: Responsive(10),
   },
   container: {
     flex: 1,
@@ -104,6 +136,7 @@ const styles = StyleSheet.create({
   dragger: {
     height: Responsive(5),
     width: Responsive(50),
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: Colors.primaryLightColor,
   },
+  animViewStyle: {width: '100%', height: '100%'},
 });
