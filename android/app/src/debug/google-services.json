@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "583933817069",
+    "project_id": "nyk-assignment",
+    "storage_bucket": "nyk-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583933817069:android:e71ff575608d2f08815ce4",
+        "android_client_info": {
+          "package_name": "com.nyk_assignment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBCcwlYzXVZah-hgMabb0ALW8y38MeS2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
