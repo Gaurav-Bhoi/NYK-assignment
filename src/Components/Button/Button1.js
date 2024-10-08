@@ -12,9 +12,12 @@ const Button1 = ({
   IconComponent,
   isImage = false,
   ImageComponent,
+  configureOnPress,
 }) => {
   return (
-    <TouchableOpacity style={[styles.buttonContainer, buttonContainerStyle]}>
+    <TouchableOpacity
+      style={[styles.buttonContainer, buttonContainerStyle]}
+      onPress={configureOnPress}>
       {isIcon && <IconComponent />}
       {isImage && <ImageComponent />}
       <Text style={[mediumTextStyle, titleStyle]}>{title}</Text>

@@ -13,6 +13,10 @@ import Button1 from '../../Components/Button/Button1';
 import Feather from 'react-native-vector-icons/Feather';
 import {Responsive} from '../../Assets/Responsive';
 import {Images} from '../../Assets/ImageIndex';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 
 const WelcomeScreen = () => {
   const navigation = useNavigation();
@@ -96,6 +100,27 @@ const WelcomeScreen = () => {
     );
   };
 
+  const onPressGoogleSignin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      if (response) {
+      } else {
+      }
+    } catch (error) {
+      if (error) {
+        switch (error.code) {
+          case statusCodes.IN_PROGRESS:
+            break;
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            break;
+          default:
+        }
+      } else {
+      }
+    }
+  };
+
   return (
     <BottomModal showCloseButton={false} modalVisible={true} autoClose={false}>
       <View style={styles.mainViewStyle}>
@@ -122,6 +147,7 @@ const WelcomeScreen = () => {
           buttonContainerStyle={styles.buttonContainerStyle2}
           isImage={true}
           ImageComponent={renderGoogleIcon}
+          configureOnPress={onPressGoogleSignin}
         />
         <Button1
           title="Login with Facebook"
