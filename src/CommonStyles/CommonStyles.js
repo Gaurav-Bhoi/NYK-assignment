@@ -13,6 +13,11 @@ export const mediumTextStyle = {
   fontSize: Responsive(12),
   color: Colors.textGrayColor,
 };
+export const regularTextStyle = {
+  fontFamily: Fonts.regular,
+  fontSize: Responsive(11),
+  color: Colors.textGrayColor,
+};
 
 export const infoTextStyle = {
   fontFamily: Fonts.regular,

@@ -18,8 +18,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 
-const WelcomeScreen = () => {
-  const navigation = useNavigation();
+const WelcomeScreen = ({navigation}) => {
   const renderMailIcon = () => {
     return (
       <View style={styles.iconContainer}>
@@ -121,8 +120,20 @@ const WelcomeScreen = () => {
     }
   };
 
+  const onPressEmailLogin = type => {
+    navigation.navigate(Screens.LoginSection, {
+      type,
+      // startAnimation: 'slide-to-left',
+    });
+  };
+
   return (
-    <BottomModal showCloseButton={false} modalVisible={true} autoClose={false}>
+    <BottomModal
+      showCloseButton={false}
+      modalVisible={true}
+      autoClose={false}
+      navigation={navigation}
+      startAnimation={'slide-to-right'}>
       <View style={styles.mainViewStyle}>
         <Text style={[headerStyle, {color: Colors.primaryColor}]}>
           Welcome To NYK
@@ -132,12 +143,14 @@ const WelcomeScreen = () => {
           buttonContainerStyle={styles.buttonContainerStyle}
           isIcon={true}
           IconComponent={renderMailIcon}
+          configureOnPress={() => onPressEmailLogin('email')}
         />
         <Button1
           title="Login with Phone"
           buttonContainerStyle={styles.buttonContainerStyle2}
           isIcon={true}
           IconComponent={renderPhoneIcon}
+          configureOnPress={() => onPressEmailLogin('phone')}
         />
         {renderSigninComponent()}
         {renderOrComponent()}

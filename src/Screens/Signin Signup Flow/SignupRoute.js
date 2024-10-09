@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   logo: {
     height: Responsive(80),
     width: Responsive(80),
-    marginTop: Responsive(100),
+    marginTop: Responsive(80),
   },
   contentContainerStyle: {justifyContent: 'center', alignItems: 'center'},
 });

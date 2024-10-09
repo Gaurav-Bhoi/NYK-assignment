@@ -11,25 +11,38 @@ import React, {useEffect, useRef, useState} from 'react';
 import Colors from '../../Assets/Colors';
 import {Responsive} from '../../Assets/Responsive';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useNavigation} from '@react-navigation/native';
+import Screens from '../../Screens/screenIndex';
 
 const BottomModal = ({
   children,
   modalVisible = false,
+  navigation,
   showDragger = true,
   showCloseButton = true,
   autoClose = false,
   startAnimation = undefined,
+  showBackButton = false,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(modalVisible);
-  const slideAnim = useRef(new Animated.Value(0)).current;
   const {width} = Dimensions.get('screen');
+  const slideAnim = useRef(
+    new Animated.Value(
+      startAnimation
+        ? startAnimation === 'slide-to-left'
+          ? width
+          : -width
+        : 0,
+    ),
+  ).current;
 
   useEffect(() => {
     if (modalVisible && startAnimation) {
       Animated.timing(slideAnim, {
-        toValue: startAnimation === 'slide-to-left' ? width : -width,
+        toValue: 0,
+        duration: 150,
         easing: Easing.linear,
-        delay: 200,
         useNativeDriver: true,
       }).start();
     }
@@ -71,6 +84,24 @@ const BottomModal = ({
     }
   };
 
+  const onPressBack = () => {
+    navigation.pop();
+  };
+
+  const backButton = () => {
+    if (!showBackButton) {
+      return;
+    }
+    return (
+      <TouchableOpacity style={styles.arrowContainer} onPress={onPressBack}>
+        <AntDesign
+          name="arrowleft"
+          size={Responsive(20)}
+          color={Colors.primaryColor}
+        />
+      </TouchableOpacity>
+    );
+  };
   return (
     <Modal
       animationType="none"
@@ -101,6 +132,11 @@ const BottomModal = ({
 export default BottomModal;
 
 const styles = StyleSheet.create({
+  arrowContainer: {
+    alignSelf: 'flex-start',
+    marginLeft: Responsive(20),
+    marginTop: Responsive(-7),
+  },
   centeredView: {
     height: '60%',
     bottom: 0,
