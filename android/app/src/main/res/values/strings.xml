@@ -3,4 +3,6 @@
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">a_Mtl9C3dbcsCU04nThNTFqS6w87Q16WDzgoqw</string>   
+    <string name="facebook_app_id">1577108202897217</string>
+    <string name="facebook_client_token">61205c6a65b1e9a51779f1ae38e98cbf</string>
 </resources>

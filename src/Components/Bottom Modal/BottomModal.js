@@ -1,19 +1,9 @@
-import {
-  Animated,
-  Dimensions,
-  Easing,
-  Modal,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert, Modal, StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import Colors from '../../Assets/Colors';
 import {Responsive} from '../../Assets/Responsive';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
-import Screens from '../../Screens/screenIndex';
 
 const BottomModal = ({
   children,
@@ -25,28 +15,12 @@ const BottomModal = ({
   startAnimation = undefined,
   showBackButton = false,
 }) => {
-  const [isModalVisible, setIsModalVisible] = useState(modalVisible);
-  const {width} = Dimensions.get('screen');
-  const slideAnim = useRef(
-    new Animated.Value(
-      startAnimation
-        ? startAnimation === 'slide-to-left'
-          ? width
-          : -width
-        : 0,
-    ),
-  ).current;
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
-    if (modalVisible && startAnimation) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 150,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [startAnimation, modalVisible, slideAnim, width]);
+    setIsModalVisible(modalVisible);
+  }, [modalVisible]);
+
   const onPressClose = () => {
     setIsModalVisible(false);
   };
@@ -71,7 +45,7 @@ const BottomModal = ({
     if (showCloseButton) {
       return (
         <View style={styles.closeButtonContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onPressClose}>
             <MaterialIcons
               name="cancel"
               size={Responsive(22)}
@@ -117,13 +91,7 @@ const BottomModal = ({
       <View style={[styles.centeredView]}>
         {dragger()}
         {closeButton()}
-        <Animated.View
-          style={[
-            styles.animViewStyle,
-            {transform: [{translateX: slideAnim}]},
-          ]}>
-          {children}
-        </Animated.View>
+        <View style={[styles.animViewStyle]}>{children}</View>
       </View>
     </Modal>
   );
@@ -149,11 +117,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: Responsive(10),
-    shadowColor: Colors.black,
-    shadowOffset: {width: 0, height: -10},
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
     shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation: 10,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderWidth: 0,
   },
   closeButtonContainer: {
     width: '100%',

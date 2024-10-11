@@ -8,6 +8,7 @@ import {headerStyle} from '../../CommonStyles/CommonStyles';
 import Button1 from '../../Components/Button/Button1';
 import {Const} from '../../Assets/Const';
 import Screens from '../screenIndex';
+import {setUserCreds} from '../../Store/Reducers/user';
 
 const LoginSection = ({route, navigation}) => {
   const {params} = route;
@@ -16,19 +17,22 @@ const LoginSection = ({route, navigation}) => {
   const onChangeText = text => setEmail(text);
   const onChangePassword = text => setPass(text);
   const [isLoginPressed, setIsLoginPressed] = useState(false);
+  const [openPopup, setOpenPopup] = useState(true);
   const onPressLogin = () => {
+    setOpenPopup(false);
+    setTimeout(() => {});
+    navigation.navigate(Screens.ProfileSettingScreen);
     setIsLoginPressed(true);
     if (!!email && !!pass) {
-      navigation.navigate(Screens.ProfileSettingScreen);
+      const payload = {type: params.type, auth: email, pass: pass};
+      setUserCreds(payload);
     }
-
-    setTimeout(() => setIsLoginPressed(false), 3000);
   };
 
   return (
     <BottomModal
       showCloseButton={false}
-      modalVisible={true}
+      modalVisible={openPopup}
       autoClose={false}
       navigation={navigation}
       showBackButton

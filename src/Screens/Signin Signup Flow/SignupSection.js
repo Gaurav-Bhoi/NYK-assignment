@@ -4,11 +4,11 @@ import BottomModal from '../../Components/Bottom Modal/BottomModal';
 import Button1 from '../../Components/Button/Button1';
 
 const SignupSection = () => {
-  return (
-    <BottomModal showCloseButton={false} modalVisible={true} autoClose={false}>
-      <View style={styles.mainContainer}></View>
-    </BottomModal>
-  );
+  // return (
+  //   <BottomModal showCloseButton={false} modalVisible={true} autoClose={false}>
+  //     <View style={styles.mainContainer}></View>
+  //   </BottomModal>
+  // );
 };
 
 export default SignupSection;

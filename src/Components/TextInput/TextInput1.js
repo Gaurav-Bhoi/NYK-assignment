@@ -1,8 +1,14 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Responsive} from '../../Assets/Responsive';
 import Colors from '../../Assets/Colors';
-import {regularTextStyle} from '../../CommonStyles/CommonStyles';
+import {infoTextStyle, regularTextStyle} from '../../CommonStyles/CommonStyles';
 
 const TextInput1 = ({
   buttonContainerStyle = {},
@@ -11,6 +17,11 @@ const TextInput1 = ({
   keyboardType = 'default',
   isPassword = false,
   textValue = undefined,
+  infoText = undefined,
+  mainContainer = {},
+  isEditable = true,
+  customTextStyle = {},
+  configureOnPress = () => {},
 }) => {
   const [text, setText] = useState('');
 
@@ -19,16 +30,22 @@ const TextInput1 = ({
   }, [text, configureTextChange]);
 
   return (
-    <View style={[styles.buttonContainer, buttonContainerStyle]}>
-      <TextInput
-        style={[styles.input, regularTextStyle]}
-        onChangeText={setText}
-        value={text}
-        placeholder={placeHolder}
-        defaultValue={textValue}
-        keyboardType={keyboardType}
-        secureTextEntry={isPassword}
-      />
+    <View style={mainContainer}>
+      {infoText && <Text style={infoTextStyle}>{infoText}</Text>}
+      <View style={[styles.buttonContainer, buttonContainerStyle]}>
+        <TouchableOpacity style={styles.input} onPress={configureOnPress}>
+          <TextInput
+            style={[styles.input, regularTextStyle, customTextStyle]}
+            onChangeText={setText}
+            value={text}
+            placeholder={placeHolder}
+            defaultValue={textValue}
+            keyboardType={keyboardType}
+            secureTextEntry={isPassword}
+            editable={isEditable}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -38,7 +55,7 @@ export default TextInput1;
 const styles = StyleSheet.create({
   buttonContainer: {
     borderWidth: 1,
-    width: '90%',
+    width: '100%',
     height: Responsive(27),
     flexDirection: 'row',
     justifyContent: 'center',

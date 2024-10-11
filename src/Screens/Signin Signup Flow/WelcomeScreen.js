@@ -1,7 +1,6 @@
-import {Button, Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {Alert, Image, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
 import BottomModal from '../../Components/Bottom Modal/BottomModal';
-import {useNavigation} from '@react-navigation/native';
 import Screens from '../screenIndex';
 import {
   headerStyle,
@@ -17,8 +16,10 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
+import {loginFb} from '../../Helper/FacebookHelper';
 
 const WelcomeScreen = ({navigation}) => {
+  const [openPopup, setOpenPopup] = useState(true);
   const renderMailIcon = () => {
     return (
       <View style={styles.iconContainer}>
@@ -121,16 +122,25 @@ const WelcomeScreen = ({navigation}) => {
   };
 
   const onPressEmailLogin = type => {
+    setOpenPopup(false);
     navigation.navigate(Screens.LoginSection, {
       type,
       // startAnimation: 'slide-to-left',
     });
   };
 
+  const onPressLoginWithFB = () => {
+    try {
+      loginFb();
+    } catch {
+    } finally {
+    }
+  };
+
   return (
     <BottomModal
       showCloseButton={false}
-      modalVisible={true}
+      modalVisible={openPopup}
       autoClose={false}
       navigation={navigation}
       startAnimation={'slide-to-right'}>
@@ -167,6 +177,7 @@ const WelcomeScreen = ({navigation}) => {
           buttonContainerStyle={styles.buttonContainerStyle2}
           isImage={true}
           ImageComponent={renderFacebookIcon}
+          configureOnPress={onPressLoginWithFB}
         />
         <Button1
           title="Login with Apple"

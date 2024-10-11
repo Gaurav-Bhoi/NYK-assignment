@@ -3,13 +3,19 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import Route from './src/Screens/route';
 import {configureGoogleSignin} from './src/Helper/GoogleHelper';
+import {Provider} from 'react-redux';
+import {store} from './src/Store/store';
 
 const App = () => {
-  useEffect(configureGoogleSignin, []);
+  useEffect(() => {
+    configureGoogleSignin();
+  }, []);
   return (
-    <NavigationContainer>
-      <Route />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Route />
+      </NavigationContainer>
+    </Provider>
   );
 };
 

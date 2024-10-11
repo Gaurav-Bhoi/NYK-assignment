@@ -8,6 +8,7 @@ const Colors = {
   borderGray: '#B5B5B5',
   textGrayColor: '#545454',
   warningRed: '#d0342c',
+  avatarBG: '#ECECEC',
 };
 
 export default Colors;
