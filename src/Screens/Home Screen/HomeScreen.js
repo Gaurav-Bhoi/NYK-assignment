@@ -40,7 +40,7 @@ const HomeScreen = () => {
         removeClippedSubviews={true}
         windowSize={5}
         renderItem={renderItem}
-        keyExtractor={item => item.userName}
+        keyExtractor={Math.random}
         contentContainerStyle={styles.mainContainerStyle}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}

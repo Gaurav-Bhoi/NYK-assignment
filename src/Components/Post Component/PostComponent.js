@@ -7,18 +7,21 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Responsive} from '../../Assets/Responsive';
 import {infoTextStyle, regularTextStyle} from '../../CommonStyles/CommonStyles';
 import Colors from '../../Assets/Colors';
 import Carousel from 'react-native-reanimated-carousel';
 import FastImage from 'react-native-fast-image';
+import PaginationDot from 'react-native-insta-pagination-dots';
 
 const PostComponent = React.memo(({item}) => {
   const [newDimensions, setNewDimensions] = useState({
     height: 300,
     width: Dimensions.get('screen').width,
   });
+
+  const [currIndex, setCurrIndex] = useState(0);
 
   useEffect(() => {
     getNewDimensions(0);
@@ -27,6 +30,7 @@ const PostComponent = React.memo(({item}) => {
   const getNewDimensions = useCallback(
     index => {
       InteractionManager.runAfterInteractions(() => {
+        setCurrIndex(index);
         const imageUri = item.imageArray[index];
         Image.getSize(imageUri, (width, height) => {
           const aspectRatio = height / width;
@@ -62,24 +66,31 @@ const PostComponent = React.memo(({item}) => {
         )}
 
         {newDimensions.width > 0 && (
-          <Carousel
-            loop={false}
-            width={newDimensions.width}
-            height={newDimensions.height}
-            pagingEnabled
-            style={styles.s4}
-            onSnapToItem={index => getNewDimensions(index)}
-            removeClippedSubviews={true}
-            data={item.imageArray}
-            windowSize={1}
-            renderItem={({item}) => {
-              return (
-                <CorouselImage newImage={item} width={newDimensions.width} />
-              );
-            }}
-          />
+          <>
+            <Carousel
+              loop={false}
+              width={newDimensions.width}
+              height={newDimensions.height}
+              pagingEnabled
+              style={styles.s4}
+              onSnapToItem={index => getNewDimensions(index)}
+              removeClippedSubviews={true}
+              data={item.imageArray}
+              windowSize={1}
+              renderItem={({item, index}) => {
+                return (
+                  <CorouselImage newImage={item} width={newDimensions.width} />
+                );
+              }}
+            />
+          </>
         )}
       </View>
+      <PaginationDot
+        activeDotColor={Colors.primaryColor}
+        curPage={currIndex}
+        maxPage={item.imageArray.length}
+      />
     </View>
   );
 });
@@ -118,21 +129,34 @@ const styles = StyleSheet.create({
   userName: {color: Colors.primaryColor, fontSize: Responsive(12)},
   postImageContainer: {
     marginTop: Responsive(10),
+    marginBottom: Responsive(5),
     width: '100%',
   },
   s2: {marginBottom: Responsive(10), marginHorizontal: Responsive(10)},
+  s5: {height: '100%', borderRadius: Responsive(5)},
 });
 
 const CorouselImage = React.memo(({newImage, width}) => {
+  const [isError, setIsError] = useState(false);
+
+  const onError = useCallback(() => {
+    setIsError(true);
+  }, []);
+
+  const onLoad = useCallback(() => {
+    setIsError(false);
+  }, []);
+
   return (
     <FastImage
-      style={{width: width, height: '100%'}}
+      style={[{width: width}, styles.s5]}
       source={{
-        uri: newImage,
+        uri: !isError ? newImage : `https://picsum.photos/400/300`,
         priority: FastImage.priority.high,
-        // cache: 'cacheOnly',
       }}
       resizeMode={FastImage.resizeMode.contain}
+      onError={onError}
+      onLoad={onLoad}
     />
   );
 });
