@@ -11,7 +11,7 @@ on:
 
 jobs:
   create-android-build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: gauravbhoi/ubuntu-amd64
     steps:
