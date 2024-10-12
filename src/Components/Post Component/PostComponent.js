@@ -1,0 +1,138 @@
+import {
+  Alert,
+  Dimensions,
+  Image,
+  InteractionManager,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {Responsive} from '../../Assets/Responsive';
+import {infoTextStyle, regularTextStyle} from '../../CommonStyles/CommonStyles';
+import Colors from '../../Assets/Colors';
+import Carousel from 'react-native-reanimated-carousel';
+import FastImage from 'react-native-fast-image';
+
+const PostComponent = React.memo(({item}) => {
+  const [newDimensions, setNewDimensions] = useState({
+    height: 300,
+    width: Dimensions.get('screen').width,
+  });
+
+  useEffect(() => {
+    getNewDimensions(0);
+  }, [getNewDimensions]);
+
+  const getNewDimensions = useCallback(
+    index => {
+      InteractionManager.runAfterInteractions(() => {
+        const imageUri = item.imageArray[index];
+        Image.getSize(imageUri, (width, height) => {
+          const aspectRatio = height / width;
+          const newHeight = newDimensions.width * aspectRatio;
+          setNewDimensions({...newDimensions, height: newHeight});
+        });
+      });
+    },
+    [item.imageArray, newDimensions],
+  );
+
+  return (
+    <View style={styles.mainContainer}>
+      <View style={styles.headerComponent}>
+        <Image
+          source={{uri: item?.profilePic}}
+          style={styles.profilePic}
+          resizeMode="contain"
+        />
+        <View style={styles.s1}>
+          <Text style={[regularTextStyle, styles.userName]}>
+            {item.userName}
+          </Text>
+          <Text style={[regularTextStyle]}>{item.postDates}</Text>
+        </View>
+      </View>
+      <View style={styles.postImageContainer}>
+        {!!item.title && (
+          <Text style={[regularTextStyle, styles.s3]}>{item.title}</Text>
+        )}
+        {!!item.description && (
+          <Text style={[infoTextStyle, styles.s2]}>{item.description}</Text>
+        )}
+
+        {newDimensions.width > 0 && (
+          <Carousel
+            loop={false}
+            width={newDimensions.width}
+            height={newDimensions.height}
+            pagingEnabled
+            style={styles.s4}
+            onSnapToItem={index => getNewDimensions(index)}
+            removeClippedSubviews={true}
+            data={item.imageArray}
+            windowSize={1}
+            renderItem={({item}) => {
+              return (
+                <CorouselImage newImage={item} width={newDimensions.width} />
+              );
+            }}
+          />
+        )}
+      </View>
+    </View>
+  );
+});
+
+export default PostComponent;
+
+const styles = StyleSheet.create({
+  profilePic: {
+    height: Responsive(40),
+    width: Responsive(40),
+    borderRadius: Responsive(20),
+  },
+  s4: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  s3: {
+    color: Colors.primaryColor,
+    fontSize: Responsive(11),
+    width: '95%',
+    alignSelf: 'center',
+  },
+  mainContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: Responsive(10),
+    width: '100%',
+  },
+  headerComponent: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: '95%',
+    flexDirection: 'row',
+  },
+  s1: {marginLeft: Responsive(10)},
+  userName: {color: Colors.primaryColor, fontSize: Responsive(12)},
+  postImageContainer: {
+    marginTop: Responsive(10),
+    width: '100%',
+  },
+  s2: {marginBottom: Responsive(10), marginHorizontal: Responsive(10)},
+});
+
+const CorouselImage = React.memo(({newImage, width}) => {
+  return (
+    <FastImage
+      style={{width: width, height: '100%'}}
+      source={{
+        uri: newImage,
+        priority: FastImage.priority.high,
+        // cache: 'cacheOnly',
+      }}
+      resizeMode={FastImage.resizeMode.contain}
+    />
+  );
+});

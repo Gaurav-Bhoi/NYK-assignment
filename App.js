@@ -5,6 +5,8 @@ import Route from './src/Screens/route';
 import {configureGoogleSignin} from './src/Helper/GoogleHelper';
 import {Provider} from 'react-redux';
 import {store} from './src/Store/store';
+import {posts} from './src/Assets/Const';
+import moment from 'moment';
 
 const App = () => {
   useEffect(() => {

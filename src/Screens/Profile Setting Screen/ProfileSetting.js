@@ -170,7 +170,7 @@ const ProfileSetting = () => {
                 <FontAwesome
                   name="user"
                   size={Responsive(40)}
-                  color={Colors.textGray}
+                  color={Colors.textGrayColor}
                 />
               )}
             </TouchableOpacity>

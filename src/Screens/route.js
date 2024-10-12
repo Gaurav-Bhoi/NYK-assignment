@@ -4,6 +4,7 @@ import Screens from './screenIndex';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignupRoute from './Signin Signup Flow/SignupRoute';
 import ProfileSetting from './Profile Setting Screen/ProfileSetting';
+import TabNavigation from './Tab Navigtaion/TabNavigation';
 
 const Route = () => {
   const Stack = createNativeStackNavigator();
@@ -12,6 +13,7 @@ const Route = () => {
       screenOptions={{
         headerShown: false,
       }}>
+      <Stack.Screen name={Screens.TabNavigation} component={TabNavigation} />
       <Stack.Screen name={Screens.SignupRoute} component={SignupRoute} />
       <Stack.Screen
         name={Screens.ProfileSettingScreen}
