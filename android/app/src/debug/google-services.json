@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "583933817069",
+    "project_id": "nyk-assignment",
+    "storage_bucket": "nyk-assignment.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:583933817069:android:e71ff575608d2f08815ce4",
+        "android_client_info": {
+          "package_name": "com.nyk_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "583933817069-ra16ttmdi2o8manppltb29dfmk9ci6fm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nyk_assignment",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "583933817069-4m5njski3q0r21q4t07stnmi91qmbtqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBCcwlYzXVZah-hgMabb0ALW8y38MeS2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "583933817069-4m5njski3q0r21q4t07stnmi91qmbtqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
