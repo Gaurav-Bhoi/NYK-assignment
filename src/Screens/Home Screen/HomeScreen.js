@@ -8,8 +8,6 @@ import Colors from '../../Assets/Colors';
 
 const HomeScreen = () => {
   const [page, setPage] = useState(1);
-  const dispatch = useDispatch();
-  const data = useSelector(state => state.post.otherUserPosts);
   const [updatedPosts, setUpdatedPosts] = useState([]);
 
   useEffect(() => {
@@ -18,7 +16,7 @@ const HomeScreen = () => {
 
   const getPostsLocally = useCallback(() => {
     InteractionManager.runAfterInteractions(() => {
-      let newPosts = posts.slice((page - 1) * 10, 10 * page);
+      let newPosts = posts.slice((page - 1) * 5, 5 * page);
       setUpdatedPosts([...updatedPosts, ...newPosts]);
     });
   }, [page, updatedPosts]);
@@ -35,17 +33,17 @@ const HomeScreen = () => {
     <View style={styles.flatlistContainer}>
       <FlatList
         data={updatedPosts}
-        initialNumToRender={10}
-        maxToRenderPerBatch={10}
-        removeClippedSubviews={true}
-        windowSize={5}
         renderItem={renderItem}
         keyExtractor={Math.random}
         contentContainerStyle={styles.mainContainerStyle}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         disableVirtualization={false}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={1}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
+        removeClippedSubviews={true}
+        windowSize={5}
       />
     </View>
   );
