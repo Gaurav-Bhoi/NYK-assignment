@@ -1,47 +1,43 @@
 import {
   Alert,
   Dimensions,
+  FlatList,
   Image,
-  InteractionManager,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {Responsive} from '../../Assets/Responsive';
 import {infoTextStyle, regularTextStyle} from '../../CommonStyles/CommonStyles';
 import Colors from '../../Assets/Colors';
-import Carousel from 'react-native-reanimated-carousel';
 import FastImage from 'react-native-fast-image';
 import PaginationDot from 'react-native-insta-pagination-dots';
+import {Images} from '../../Assets/ImageIndex';
 
 const PostComponent = React.memo(({item}) => {
-  const [newDimensions, setNewDimensions] = useState({
-    height: 300,
-    width: Dimensions.get('screen').width,
-  });
-
   const [currIndex, setCurrIndex] = useState(0);
+  const width = Dimensions.get('screen').width;
+  const viewConfigRef = useRef({viewAreaCoveragePercentThreshold: 70});
 
   useEffect(() => {
-    getNewDimensions(0);
-  }, [getNewDimensions]);
+    handleImagePreload();
+  }, [handleImagePreload]);
 
-  const getNewDimensions = useCallback(
-    index => {
-      InteractionManager.runAfterInteractions(() => {
+  const handleImagePreload = useCallback(() => {
+    const data = item?.imageArray?.map(ele => JSON.parse(ele));
+    FastImage.preload(data);
+  }, [item?.imageArray]);
+
+  const onViewCallBack = useCallback(
+    item => {
+      const index = item?.viewableItems[0]?.index;
+      if (index) {
         setCurrIndex(index);
-        const imageUri = item.imageArray[index];
-        Image.getSize(imageUri, (width, height) => {
-          const aspectRatio = height / width;
-          const newHeight = newDimensions.width * aspectRatio;
-          setNewDimensions({...newDimensions, height: newHeight});
-        });
-      });
+      }
     },
-    [item.imageArray, newDimensions],
+    [setCurrIndex],
   );
-
   return (
     <View style={styles.mainContainer}>
       <View style={styles.headerComponent}>
@@ -65,25 +61,22 @@ const PostComponent = React.memo(({item}) => {
           <Text style={[infoTextStyle, styles.s2]}>{item.description}</Text>
         )}
 
-        {newDimensions.width > 0 && (
-          <>
-            <Carousel
-              loop={false}
-              width={newDimensions.width}
-              height={newDimensions.height}
-              pagingEnabled
-              style={styles.s4}
-              onSnapToItem={index => getNewDimensions(index)}
-              removeClippedSubviews={true}
-              data={item.imageArray}
-              windowSize={1}
-              renderItem={({item, index}) => {
-                return (
-                  <CorouselImage newImage={item} width={newDimensions.width} />
-                );
-              }}
-            />
-          </>
+        {width > 0 && (
+          <FlatList
+            horizontal
+            removeClippedSubviews={true}
+            windowSize={3}
+            disableVirtualization={false}
+            data={item.imageArray}
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            viewabilityConfig={viewConfigRef.current}
+            onViewableItemsChanged={onViewCallBack}
+            style={styles.corouselContainer}
+            renderItem={({item, index}) => {
+              return <CorouselImage newImage={item} width={width} />;
+            }}
+          />
         )}
       </View>
       <PaginationDot
@@ -102,6 +95,10 @@ const styles = StyleSheet.create({
     height: Responsive(40),
     width: Responsive(40),
     borderRadius: Responsive(20),
+  },
+  corouselContainer: {
+    width: Dimensions.get('screen').width,
+    height: Responsive(300),
   },
   s4: {
     justifyContent: 'center',
@@ -143,20 +140,19 @@ const CorouselImage = React.memo(({newImage, width}) => {
     setIsError(true);
   }, []);
 
-  const onLoad = useCallback(() => {
-    setIsError(false);
-  }, []);
-
   return (
     <FastImage
       style={[{width: width}, styles.s5]}
-      source={{
-        uri: !isError ? newImage : `https://picsum.photos/400/300`,
-        priority: FastImage.priority.high,
-      }}
+      source={
+        !isError
+          ? {
+              uri: JSON.parse(newImage).uri,
+              priority: FastImage.priority.high,
+            }
+          : Images.noImage
+      }
       resizeMode={FastImage.resizeMode.contain}
       onError={onError}
-      onLoad={onLoad}
     />
   );
 });

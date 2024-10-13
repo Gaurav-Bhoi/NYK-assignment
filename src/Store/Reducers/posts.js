@@ -1,5 +1,3 @@
-import {Alert} from 'react-native';
-import {callApi} from '../../Helper/AxiosHelper';
 import {AllActions} from '../actionIndex';
 
 const initialState = {
