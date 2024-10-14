@@ -6,15 +6,6 @@ import WelcomeScreen from './WelcomeScreen';
 import SignupSection from './SignupSection';
 import LoginSection from './LoginSection';
 
-const Route2 = () => {
-  const Stack = createNativeStackNavigator();
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name={Screens.WelcomeScreen} component={WelcomeScreen} />
-      <Stack.Screen name={Screens.SignupSection} component={SignupSection} />
-      <Stack.Screen name={Screens.LoginSection} component={LoginSection} />
-    </Stack.Navigator>
-  );
-};
+const Route2 = () => {};
 
 export default Route2;

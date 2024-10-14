@@ -7,6 +7,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const BottomModal = ({
   children,
+  onClose,
   modalVisible = false,
   navigation,
   showDragger = true,
@@ -15,19 +16,9 @@ const BottomModal = ({
   startAnimation = undefined,
   showBackButton = false,
 }) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  useEffect(() => {
-    setIsModalVisible(modalVisible);
-  }, [modalVisible]);
-
-  const onPressClose = () => {
-    setIsModalVisible(false);
-  };
-
   const onPressAutoClose = () => {
     if (autoClose) {
-      setIsModalVisible(false);
+      onClose;
     }
   };
 
@@ -45,7 +36,7 @@ const BottomModal = ({
     if (showCloseButton) {
       return (
         <View style={styles.closeButtonContainer}>
-          <TouchableOpacity onPress={onPressClose}>
+          <TouchableOpacity onPress={onClose}>
             <MaterialIcons
               name="cancel"
               size={Responsive(22)}
@@ -79,9 +70,9 @@ const BottomModal = ({
   return (
     <Modal
       animationType="none"
-      visible={isModalVisible}
+      visible={modalVisible}
       transparent={true}
-      onRequestClose={onPressClose}>
+      onRequestClose={onClose}>
       <TouchableOpacity
         style={styles.container}
         activeOpacity={1}

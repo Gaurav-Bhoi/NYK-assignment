@@ -1,5 +1,5 @@
 import {Alert, Image, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import BottomModal from '../../Components/Bottom Modal/BottomModal';
 import Screens from '../screenIndex';
 import {
@@ -17,10 +17,17 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {loginFb} from '../../Helper/FacebookHelper';
+import {useFocusEffect} from '@react-navigation/native';
 
 const WelcomeScreen = ({navigation}) => {
   const [openPopup, setOpenPopup] = useState(true);
   const [mode, setMode] = useState('login');
+
+  useFocusEffect(
+    useCallback(() => {
+      setOpenPopup(true);
+    }, []),
+  );
 
   const renderMailIcon = () => {
     return (
@@ -145,8 +152,13 @@ const WelcomeScreen = ({navigation}) => {
     }
   };
 
+  const onClose = () => {
+    setOpenPopup(false);
+  };
+
   return (
     <BottomModal
+      onClose={onClose}
       showCloseButton={false}
       modalVisible={openPopup}
       autoClose={false}

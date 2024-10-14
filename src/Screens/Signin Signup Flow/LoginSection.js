@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, ToastAndroid, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import BottomModal from '../../Components/Bottom Modal/BottomModal';
 import TextInput1 from '../../Components/TextInput/TextInput1';
@@ -17,7 +17,7 @@ const LoginSection = ({route, navigation}) => {
   const {params} = route;
   const dispatch = useDispatch();
   const usersList = useSelector(state => state.auth.usersList);
-
+  console.log('this is user list', usersList);
   const userCreds = {id: '', password: ''};
 
   const loginSchema = yup.object().shape({
@@ -82,13 +82,21 @@ const LoginSection = ({route, navigation}) => {
   };
 
   const handleLogin = values => {
-    const existsUser = _.some(usersList, values);
-    if (!!existsUser) {
-      navigation.goBack();
+    const existsUser = _.filter(usersList, ele => ele.id === values.id);
+
+    if (existsUser.length > 0) {
       navigation.navigate(Screens.TabNavigation, {
         screen: Screens.SignupRoute,
       });
+      return;
     }
+    ToastAndroid.showWithGravityAndOffset(
+      'User does not exist! you nedd to signup',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
   };
 
   const handleSignup = useCallback(
@@ -102,8 +110,10 @@ const LoginSection = ({route, navigation}) => {
           },
         });
       }
+
+      navigation.navigate(Screens.ProfileSettingScreen);
     },
-    [dispatch],
+    [dispatch, navigation],
   );
 
   return (
@@ -130,7 +140,8 @@ const LoginSection = ({route, navigation}) => {
                   Welcome To NYK
                 </Text>
                 <TextInput1
-                  buttonContainerStyle={[styles.buttonContainerStyle]}
+                  infoText={'email'}
+                  mainContainer={[styles.buttonContainerStyle]}
                   configureTextChange={handleChange('id')}
                   textValue={values.id}
                   keyboardType={params.type === 'phone' ? 'numeric' : 'email'}
@@ -146,7 +157,8 @@ const LoginSection = ({route, navigation}) => {
                   </Text>
                 )}
                 <TextInput1
-                  buttonContainerStyle={[styles.buttonContainerStyle2]}
+                  infoText={'password'}
+                  mainContainer={[styles.buttonContainerStyle2]}
                   configureTextChange={handleChange('password')}
                   textValue={values.password}
                   placeHolder="Enter password here"
@@ -160,7 +172,8 @@ const LoginSection = ({route, navigation}) => {
                 {params.mode === 'signup' && (
                   <>
                     <TextInput1
-                      buttonContainerStyle={[styles.buttonContainerStyle2]}
+                      infoText={'confirm password'}
+                      mainContainer={[styles.buttonContainerStyle2]}
                       configureTextChange={handleChange('confirmPassword')}
                       textValue={values.confirmPassword}
                       placeHolder="Confirm password here"

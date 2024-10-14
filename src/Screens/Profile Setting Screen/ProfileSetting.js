@@ -28,8 +28,9 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
 import {AllActions} from '../../Store/actionIndex';
+import Screens from '../screenIndex';
 
-const ProfileSetting = () => {
+const ProfileSetting = ({navigation}) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const dispatch = useDispatch();
   const userDetails = useSelector(state => state.user.userDetails);
@@ -156,7 +157,8 @@ const ProfileSetting = () => {
   };
 
   const onPressSubmit = values => {
-    dispatch({type: AllActions.SET_USER_DETAILS}, values);
+    dispatch({type: AllActions.SET_USER_DETAILS, payload: values});
+    navigation.navigate(Screens.TabNavigation);
   };
 
   return (

@@ -38,15 +38,6 @@ const HeaderComponent = React.memo(
         )}
         {isBackButton && (
           <View style={styles.screenNameContainer}>
-            <TouchableOpacity
-              onPress={onPressBack}
-              style={styles.backButtonContainer}>
-              <Ionicons
-                name="arrow-back"
-                size={Responsive(20)}
-                color={Colors.primaryColor}
-              />
-            </TouchableOpacity>
             <Text style={[mediumTextStyle, styles.backButton]}>
               {screenName}
             </Text>
@@ -98,6 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
   },
   logoStyle: {height: Responsive(30), width: Responsive(30)},
   buttonContainerStyle2: {width: '100%'},

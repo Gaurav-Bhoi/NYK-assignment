@@ -12,22 +12,29 @@ import Colors from '../../Assets/Colors';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {pick, types} from 'react-native-document-picker';
 import Image from 'react-native-fast-image';
+import Video, {VideoRef} from 'react-native-video';
 import {
   mediumTextStyle,
   regularTextStyle,
 } from '../../CommonStyles/CommonStyles';
+import moment from 'moment';
+import {useDispatch, useSelector} from 'react-redux';
+import {AllActions} from '../../Store/actionIndex';
+import Screens from '../screenIndex';
 
-const CreatePostScreen = () => {
+const CreatePostScreen = ({navigation}) => {
   const [submitPressed, setSubmitPressed] = useState(false);
-  const [mediaData, setMediaData] = useState(undefined);
+  const [mediaData, setMediaData] = useState([]);
+  const userDetails = useSelector(state => state.user.userDetails);
   const [currIndex, setCurrIndex] = useState(0);
-
+  const [videoStatus, setVideoStatus] = useState(false);
+  const videoRef = useRef(null);
+  const viewConfigRef = useRef({viewAreaCoveragePercentThreshold: 70});
+  const dispatch = useDispatch();
   const postCreationValidationSchema = yup.object().shape({
     postTitle: yup.string().required('Title for the is required'),
     postDesc: yup.string().required('Description for the post is required'),
   });
-
-  const viewConfigRef = useRef({viewAreaCoveragePercentThreshold: 70});
 
   const renderIcon = () => {
     return (
@@ -46,16 +53,30 @@ const CreatePostScreen = () => {
       allowMultiSelection: true,
       type: [types.video, types.images],
     });
-    console.log(pickResult);
     setMediaData(pickResult);
   };
 
   const renderMedia = ({item}) => {
+    if (item.type === 'image/jpeg') {
+      return (
+        <View>
+          <Image
+            source={{uri: item.uri}}
+            style={styles.image}
+            resizeMode="contain"
+          />
+        </View>
+      );
+    }
     return (
-      <Image
+      <Video
         source={{uri: item.uri}}
-        style={styles.image}
+        controls={true}
+        paused={videoStatus}
         resizeMode="contain"
+        onError={e => console.log(e)}
+        onBuffer={e => console.log('Buffering:', e)}
+        style={styles.image}
       />
     );
   };
@@ -70,6 +91,21 @@ const CreatePostScreen = () => {
     [setCurrIndex],
   );
 
+  const onPressSubmit = values => {
+    const post = {
+      description: values.postDesc,
+      imageArray: mediaData,
+      postDates: moment().format('DD MMM YYYY, h:mm a'),
+      profilePic: userDetails.profilePic,
+      profileType: userDetails.profilePic,
+      title: values.postTitle,
+      userName: userDetails.userName,
+    };
+
+    dispatch({type: AllActions.SET_USERPOST_LIST, payload: post});
+    navigation.navigate(Screens.HomeScreen);
+  };
+
   return (
     <CommonScreen mainContainerStyle={styles.mainContainer}>
       <HeaderComponent
@@ -82,7 +118,7 @@ const CreatePostScreen = () => {
           validateOnMount
           validationSchema={postCreationValidationSchema}
           initialValues={{postTitle: '', postDesc: ''}}
-          onSubmit={values => {}}>
+          onSubmit={onPressSubmit}>
           {({
             handleChange,
             handleSubmit,
@@ -132,7 +168,7 @@ const CreatePostScreen = () => {
                     configureOnPress={handleAddMedia}
                   />
 
-                  {!!mediaData && (
+                  {mediaData.length > 0 && (
                     <View style={styles.s3}>
                       <Text
                         style={[
@@ -188,12 +224,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Responsive(20),
+    marginBottom: Responsive(10),
   },
-  image: {height: Responsive(200), width: Dimensions.get('screen').width},
+
+  image: {height: Responsive(250), width: Dimensions.get('screen').width},
   flatlistStyle: {
     width: Dimensions.get('screen').width,
-    height: 200,
-    backgroundColor: Colors.white,
+    height: Responsive(250),
     borderRadius: Responsive(5),
     shadowColor: Colors.black,
     shadowOffset: {
