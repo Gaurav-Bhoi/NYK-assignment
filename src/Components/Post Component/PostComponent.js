@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: Responsive(10),
+    marginBottom: Responsive(20),
     width: '100%',
   },
   headerComponent: {
@@ -138,7 +138,7 @@ const CorouselImage = React.memo(({newImage, width}) => {
 
   const onError = useCallback(() => {
     setIsError(true);
-  }, []);
+  }, [setIsError]);
 
   return (
     <FastImage

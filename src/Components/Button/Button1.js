@@ -13,9 +13,11 @@ const Button1 = ({
   isImage = false,
   ImageComponent,
   configureOnPress,
+  isDisabled = false,
 }) => {
   return (
     <TouchableOpacity
+      disabled={isDisabled}
       style={[styles.buttonContainer, buttonContainerStyle]}
       onPress={configureOnPress}>
       {isIcon && <IconComponent />}

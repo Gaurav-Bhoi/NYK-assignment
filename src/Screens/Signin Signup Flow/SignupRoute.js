@@ -8,14 +8,24 @@ import {Responsive} from '../../Assets/Responsive';
 import {NavigationContainer} from '@react-navigation/native';
 import Route2 from './Route2';
 import {Images} from '../../Assets/ImageIndex';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Screens from '../screenIndex';
+import WelcomeScreen from './WelcomeScreen';
+import SignupSection from './SignupSection';
+import LoginSection from './LoginSection';
 
 const SignupRoute = () => {
+  const Stack = createNativeStackNavigator();
   return (
     <CommonScreen
       mainContainerStyle={styles.commonScreenStyle}
       contentContainerStyle={styles.contentContainerStyle}>
       <Image source={Images.nykWhiteLogo} style={styles.logo} />
-      <Route2 />
+      <Stack.Navigator>
+        <Stack.Screen name={Screens.WelcomeScreen} component={WelcomeScreen} />
+        <Stack.Screen name={Screens.SignupSection} component={SignupSection} />
+        <Stack.Screen name={Screens.LoginSection} component={LoginSection} />
+      </Stack.Navigator>
     </CommonScreen>
   );
 };

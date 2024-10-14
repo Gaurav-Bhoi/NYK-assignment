@@ -1,5 +1,5 @@
 import {Alert, Image, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import BottomModal from '../../Components/Bottom Modal/BottomModal';
 import Screens from '../screenIndex';
 import {
@@ -17,9 +17,18 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import {loginFb} from '../../Helper/FacebookHelper';
+import {useFocusEffect} from '@react-navigation/native';
 
 const WelcomeScreen = ({navigation}) => {
   const [openPopup, setOpenPopup] = useState(true);
+  const [mode, setMode] = useState('login');
+
+  useFocusEffect(
+    useCallback(() => {
+      setOpenPopup(true);
+    }, []),
+  );
+
   const renderMailIcon = () => {
     return (
       <View style={styles.iconContainer}>
@@ -43,18 +52,23 @@ const WelcomeScreen = ({navigation}) => {
     );
   };
 
+  const onPressSignup = () => {
+    setMode(mode === 'login' ? 'signup' : 'login');
+  };
+
   const renderSigninComponent = () => {
     return (
       <View style={styles.signinContainer}>
         <Text style={[infoTextStyle, {marginRight: Responsive(6)}]}>
-          Don't have an account
+          {mode !== 'signup' ? `I don't have an account` : `I have an account`}
         </Text>
         <Text
           style={[
             infoTextStyle,
             {color: Colors.primaryColor, fontSize: Responsive(11)},
-          ]}>
-          Signup
+          ]}
+          onPress={onPressSignup}>
+          {mode !== 'login' ? 'Login' : 'Signup'}
         </Text>
       </View>
     );
@@ -125,6 +139,7 @@ const WelcomeScreen = ({navigation}) => {
     setOpenPopup(false);
     navigation.navigate(Screens.LoginSection, {
       type,
+      mode,
       // startAnimation: 'slide-to-left',
     });
   };
@@ -137,8 +152,13 @@ const WelcomeScreen = ({navigation}) => {
     }
   };
 
+  const onClose = () => {
+    setOpenPopup(false);
+  };
+
   return (
     <BottomModal
+      onClose={onClose}
       showCloseButton={false}
       modalVisible={openPopup}
       autoClose={false}
@@ -149,14 +169,14 @@ const WelcomeScreen = ({navigation}) => {
           Welcome To NYK
         </Text>
         <Button1
-          title="Login with Email"
+          title={mode === 'login' ? 'Login with Email' : 'Signup with Email'}
           buttonContainerStyle={styles.buttonContainerStyle}
           isIcon={true}
           IconComponent={renderMailIcon}
           configureOnPress={() => onPressEmailLogin('email')}
         />
         <Button1
-          title="Login with Phone"
+          title={mode === 'login' ? 'Login with Phone' : 'Signup with Phone'}
           buttonContainerStyle={styles.buttonContainerStyle2}
           isIcon={true}
           IconComponent={renderPhoneIcon}

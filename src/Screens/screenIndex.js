@@ -10,6 +10,7 @@ const Screens = {
   PostScreen: 'Create Post',
   NotificationScreen: 'Notifications',
   ProfileScreen: 'Profile',
+  CreatePostScreen: 'CreatePostScreen',
 };
 
 export default Screens;
