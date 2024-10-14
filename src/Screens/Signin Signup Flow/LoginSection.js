@@ -74,7 +74,6 @@ const LoginSection = ({route, navigation}) => {
     const existsUser = _.filter(usersList, ele => ele.id === values.id);
 
     if (existsUser.length > 0) {
-      console.log('lol');
       setOpenPopup(false);
       dispatch({type: AllActions.SET_LOGIN_STATUS, payload: true});
       navigation.navigate(Screens.TabNavigation, {

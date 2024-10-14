@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   s2: {marginBottom: Responsive(10), marginHorizontal: Responsive(10)},
-  s5: {height: '100%', borderRadius: Responsive(5)},
+  s5: {height: '100%'},
 });
 
 const CorouselImage = React.memo(({newImage, width}) => {
@@ -142,7 +142,10 @@ const CorouselImage = React.memo(({newImage, width}) => {
 
   return (
     <FastImage
-      style={[{width: width}, styles.s5]}
+      style={[
+        {width: width, backgroundColor: !isError ? '#0A0404' : Colors.white},
+        styles.s5,
+      ]}
       source={
         !isError
           ? {

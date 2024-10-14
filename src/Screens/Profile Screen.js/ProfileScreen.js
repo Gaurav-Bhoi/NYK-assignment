@@ -1,4 +1,11 @@
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useCallback} from 'react';
 import CommonScreen from '../../Components/CommonScreen/CommonScreen';
 import HeaderComponent from '../../Components/Header Component/HeaderComponent';
@@ -62,8 +69,8 @@ const ProfileScreen = ({navigation}) => {
     );
   };
   const onLogout = () => {
-    navigation.navigate(Screens.SignupRoute, {screen: Screens.WelcomeScreen});
     dispatch({type: AllActions.SET_LOGIN_STATUS, payload: false});
+    navigation.navigate(Screens.SignupRoute, {screen: Screens.WelcomeScreen});
   };
 
   const horizontaLine = () => {
@@ -104,11 +111,55 @@ const ProfileScreen = ({navigation}) => {
     );
   };
 
+  const renderFollowersAndPosts = () => {
+    return (
+      <View style={styles.s7}>
+        <Text
+          style={[
+            mediumTextStyle,
+            {color: Colors.primaryLightColor, marginLeft: Responsive(10)},
+          ]}>
+          Followers{' '}
+          <Text style={({color: Colors.textGrayColor}, mediumTextStyle)}>
+            {Math.floor(Math.random() * 10000)}
+          </Text>
+        </Text>
+        <Text
+          style={[
+            mediumTextStyle,
+            {color: Colors.primaryLightColor, marginLeft: Responsive(10)},
+          ]}>
+          Posts{' '}
+          <Text style={({color: Colors.textGrayColor}, mediumTextStyle)}>
+            {userPosts.map(ele => ele.imageArray).flat().length}
+          </Text>
+        </Text>
+      </View>
+    );
+  };
+
+  const onPressEdit = () => {
+    navigation.navigate(Screens.ProfileSettingScreen);
+  };
+
+  const renderEditIcon = () => {
+    return (
+      <TouchableOpacity style={styles.editIconContainer} onPress={onPressEdit}>
+        <MaterialIcons
+          name="edit"
+          size={Responsive(15)}
+          color={Colors.primaryColor}
+        />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <CommonScreen mainContainerStyle={styles.mainContainer}>
       <HeaderComponent isHeader={true} screenName={'Profile'} isBackButton />
       <View style={styles.mainContainer2}>
         <View style={styles.profileContainer}>
+          {renderEditIcon()}
           <View style={styles.s1}>
             <View style={styles.s5}>
               <View style={styles.profilePicContainer}>
@@ -132,8 +183,8 @@ const ProfileScreen = ({navigation}) => {
                 )}
               </View>
               <View style={styles.s4}>
-                {info('user name', profile.userName)}
-                {info('birth date', profile.birthDate)}
+                {!!profile.userName && info('user name', profile.userName)}
+                {!!profile.birthDate && info('birth date', profile.birthDate)}
               </View>
             </View>
             <Button1
@@ -147,16 +198,20 @@ const ProfileScreen = ({navigation}) => {
           </View>
 
           <View style={styles.s2}>
-            <View>
-              <Text style={[infoTextStyle, {color: Colors.primaryLightColor}]}>
-                bio
-              </Text>
-              <Text style={[styles.bioText, regularTextStyle]}>
-                {profile.desc}
-              </Text>
-            </View>
+            {!!profile.desc && (
+              <View>
+                <Text
+                  style={[infoTextStyle, {color: Colors.primaryLightColor}]}>
+                  bio
+                </Text>
+                <Text style={[styles.bioText, regularTextStyle]}>
+                  {profile.desc}
+                </Text>
+              </View>
+            )}
           </View>
         </View>
+        {renderFollowersAndPosts()}
         {horizontaLine()}
         <View>
           <FlatList
@@ -176,11 +231,30 @@ const ProfileScreen = ({navigation}) => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
+  editIconContainer: {
+    backgroundColor: Colors.white,
+    height: Responsive(20),
+    width: Responsive(20),
+    borderRadius: Responsive(15),
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: Responsive(2),
+    position: 'absolute',
+    right: Responsive(-5),
+    top: Responsive(-5),
+  },
   horizontaLine: {
     width: '100%',
     height: Responsive(2),
     backgroundColor: Colors.borderGray,
     marginTop: Responsive(15),
+  },
+  s7: {
+    width: '100%',
+    marginTop: Responsive(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   flheaderCOntinaer: {
     justifyContent: 'center',
@@ -207,6 +281,7 @@ const styles = StyleSheet.create({
   addMediaButtons: {
     borderColor: Colors.primaryColor,
     width: Responsive(100),
+    marginRight: Responsive(10),
   },
   profileContainer: {
     width: '95%',
