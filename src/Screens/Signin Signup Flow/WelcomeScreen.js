@@ -1,5 +1,5 @@
 import {Alert, Image, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import BottomModal from '../../Components/Bottom Modal/BottomModal';
 import Screens from '../screenIndex';
 import {
@@ -18,10 +18,19 @@ import {
 } from '@react-native-google-signin/google-signin';
 import {loginFb} from '../../Helper/FacebookHelper';
 import {useFocusEffect} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const WelcomeScreen = ({navigation}) => {
   const [openPopup, setOpenPopup] = useState(true);
+  const loginStatus = useSelector(state => state.auth.isUserLoggedin);
   const [mode, setMode] = useState('login');
+
+  useEffect(() => {
+    if (loginStatus) {
+      setOpenPopup(false);
+      navigation.navigate(Screens.TabNavigation);
+    }
+  }, [loginStatus, navigation]);
 
   useFocusEffect(
     useCallback(() => {

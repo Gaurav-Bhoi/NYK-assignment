@@ -2,7 +2,7 @@ import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import React, {useCallback} from 'react';
 import CommonScreen from '../../Components/CommonScreen/CommonScreen';
 import HeaderComponent from '../../Components/Header Component/HeaderComponent';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Responsive} from '../../Assets/Responsive';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../Assets/Colors';
@@ -15,11 +15,12 @@ import Button1 from '../../Components/Button/Button1';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
 import Screens from '../screenIndex';
+import {AllActions} from '../../Store/actionIndex';
 
 const ProfileScreen = ({navigation}) => {
   const profile = useSelector(state => state.user.userDetails);
   const userPosts = useSelector(state => state.user.userPosts);
-
+  const dispatch = useDispatch();
   const formattedPosts = useCallback(() => {
     let flattenPosts = userPosts.map(ele => ele.imageArray);
     flattenPosts = flattenPosts.flat();
@@ -42,7 +43,9 @@ const ProfileScreen = ({navigation}) => {
           }>
           {title}
         </Text>
-        <Text style={[mediumTextStyle]}>{value}</Text>
+        <Text style={[[regularTextStyle, {fontSize: Responsive(10)}]]}>
+          {value}
+        </Text>
       </View>
     );
   };
@@ -60,6 +63,7 @@ const ProfileScreen = ({navigation}) => {
   };
   const onLogout = () => {
     navigation.navigate(Screens.SignupRoute, {screen: Screens.WelcomeScreen});
+    dispatch({type: AllActions.SET_LOGIN_STATUS, payload: false});
   };
 
   const horizontaLine = () => {
@@ -72,17 +76,7 @@ const ProfileScreen = ({navigation}) => {
     }
 
     return (
-      <View
-        style={[
-          styles.content,
-          {
-            borderWidth: Responsive(2),
-            borderColor: Colors.black,
-            marginRight: Responsive(5),
-            marginBottom: Responsive(5),
-            borderRadius: Responsive(5),
-          },
-        ]}>
+      <View style={[styles.content, styles.s6]}>
         <FastImage
           source={{uri: item.uri, priority: FastImage.priority.high}}
           resizeMode={FastImage.resizeMode.contain}
@@ -205,8 +199,8 @@ const styles = StyleSheet.create({
   mainContainer: {backgroundColor: ''},
   mainContainer2: {width: '100%', alignSelf: 'center'},
   profilePic: {
-    height: Responsive(42),
-    width: Responsive(42),
+    height: Responsive(35),
+    width: Responsive(35),
     borderRadius: Responsive(20),
   },
   s2: {marginTop: Responsive(10)},
@@ -247,5 +241,13 @@ const styles = StyleSheet.create({
     marginLeft: Responsive(7),
   },
   s4: {flexDirection: 'row', marginLeft: Responsive(10)},
-  s6: {flexDirection: 'row'},
+  s5: {flexDirection: 'row'},
+  s6: {
+    borderWidth: Responsive(2),
+    borderColor: Colors.black,
+    marginRight: Responsive(2),
+    marginBottom: Responsive(2),
+    borderRadius: Responsive(5),
+    backgroundColor: '#0A0404',
+  },
 });

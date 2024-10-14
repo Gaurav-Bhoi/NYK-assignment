@@ -19,6 +19,9 @@ export const authReducer = (state = initialState, action) => {
     case AllActions.SET_USERS_LIST: {
       return {...state, usersList: [...state.usersList, action.payload]};
     }
+    case AllActions.SET_LOGIN_STATUS: {
+      return {...state, isUserLoggedin: action.payload};
+    }
     default: {
       return state;
     }

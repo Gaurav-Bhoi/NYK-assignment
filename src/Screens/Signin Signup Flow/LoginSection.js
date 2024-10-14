@@ -17,7 +17,6 @@ const LoginSection = ({route, navigation}) => {
   const {params} = route;
   const dispatch = useDispatch();
   const usersList = useSelector(state => state.auth.usersList);
-  console.log('this is user list', usersList);
   const userCreds = {id: '', password: ''};
 
   const loginSchema = yup.object().shape({
@@ -75,6 +74,9 @@ const LoginSection = ({route, navigation}) => {
     const existsUser = _.filter(usersList, ele => ele.id === values.id);
 
     if (existsUser.length > 0) {
+      console.log('lol');
+      setOpenPopup(false);
+      dispatch({type: AllActions.SET_LOGIN_STATUS, payload: true});
       navigation.navigate(Screens.TabNavigation, {
         screen: Screens.SignupRoute,
       });
@@ -100,7 +102,7 @@ const LoginSection = ({route, navigation}) => {
           },
         });
       }
-
+      setOpenPopup(false);
       navigation.navigate(Screens.ProfileSettingScreen);
     },
     [dispatch, navigation],
@@ -135,7 +137,7 @@ const LoginSection = ({route, navigation}) => {
                   Welcome To NYK
                 </Text>
                 <TextInput1
-                  infoText={'email'}
+                  infoText={params.type === 'email' ? 'email' : 'phone number'}
                   mainContainer={[styles.buttonContainerStyle]}
                   configureTextChange={handleChange('id')}
                   textValue={values.id}
@@ -211,5 +213,5 @@ const styles = StyleSheet.create({
   },
   s1: {justifyContent: 'center', alignItems: 'flex-start'},
   buttonContainerStyle: {width: '80%', marginTop: Responsive(25)},
-  buttonContainerStyle2: {width: '80%', marginTop: Responsive(17)},
+  buttonContainerStyle2: {width: '80%', marginTop: Responsive(10)},
 });

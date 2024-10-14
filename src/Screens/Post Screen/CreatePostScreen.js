@@ -21,9 +21,11 @@ import moment from 'moment';
 import {useDispatch, useSelector} from 'react-redux';
 import {AllActions} from '../../Store/actionIndex';
 import Screens from '../screenIndex';
+import {useFocusEffect} from '@react-navigation/native';
 
 const CreatePostScreen = ({navigation}) => {
   const [submitPressed, setSubmitPressed] = useState(false);
+  const [details, setDetails] = useState({postTitle: '', postDesc: ''});
   const [mediaData, setMediaData] = useState([]);
   const userDetails = useSelector(state => state.user.userDetails);
   const [currIndex, setCurrIndex] = useState(0);
@@ -36,6 +38,12 @@ const CreatePostScreen = ({navigation}) => {
     postDesc: yup.string().required('Description for the post is required'),
   });
 
+  useFocusEffect(
+    useCallback(() => {
+      setDetails({postTitle: '', postDesc: ''});
+      setMediaData([]);
+    }, []),
+  );
   const renderIcon = () => {
     return (
       <View style={styles.iconContainer}>
@@ -91,7 +99,7 @@ const CreatePostScreen = ({navigation}) => {
     [setCurrIndex],
   );
 
-  const onPressSubmit = values => {
+  const onPressSubmit = (values, {resetForm}) => {
     const post = {
       description: values.postDesc,
       imageArray: mediaData,
@@ -103,6 +111,7 @@ const CreatePostScreen = ({navigation}) => {
     };
 
     dispatch({type: AllActions.SET_USERPOST_LIST, payload: post});
+    resetForm();
     navigation.navigate(Screens.HomeScreen);
   };
 
@@ -117,7 +126,7 @@ const CreatePostScreen = ({navigation}) => {
         <Formik
           validateOnMount
           validationSchema={postCreationValidationSchema}
-          initialValues={{postTitle: '', postDesc: ''}}
+          initialValues={details}
           onSubmit={onPressSubmit}>
           {({
             handleChange,
