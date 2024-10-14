@@ -125,9 +125,14 @@ const ProfileSetting = ({navigation}) => {
     });
   };
 
+  const onClose = () => {
+    setOpenPopup(false);
+  };
+
   const renderBottomModal = setFieldValue => {
     return (
       <BottomModal
+        onClose={onClose}
         showCloseButton={true}
         modalVisible={openPopup}
         autoClose={true}>

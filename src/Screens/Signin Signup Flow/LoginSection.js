@@ -63,16 +63,6 @@ const LoginSection = ({route, navigation}) => {
 
   const [isLoginPressed, setIsLoginPressed] = useState(false);
   const [openPopup, setOpenPopup] = useState(true);
-  const onPressLogin = () => {
-    setOpenPopup(false);
-    setTimeout(() => {});
-    navigation.navigate(Screens.ProfileSettingScreen);
-    setIsLoginPressed(true);
-    // if (!!email && !!pass) {
-    //   const payload = {type: params.type, auth: email, pass: pass};
-    //   setUserCreds(payload);
-    // }
-  };
 
   const onSubmitAction = values => {
     if (params.mode === 'login') {
@@ -116,8 +106,13 @@ const LoginSection = ({route, navigation}) => {
     [dispatch, navigation],
   );
 
+  const onClose = () => {
+    setOpenPopup(false);
+  };
+
   return (
     <BottomModal
+      onClose={onClose}
       showCloseButton={false}
       modalVisible={openPopup}
       autoClose={false}
