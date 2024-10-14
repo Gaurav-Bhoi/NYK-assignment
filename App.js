@@ -4,9 +4,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import Route from './src/Screens/route';
 import {configureGoogleSignin} from './src/Helper/GoogleHelper';
 import {Provider} from 'react-redux';
-import {store} from './src/Store/store';
+import {persistor, store} from './src/Store/store';
 import {posts} from './src/Assets/Const';
 import moment from 'moment';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App = () => {
   useEffect(() => {
@@ -14,9 +15,11 @@ const App = () => {
   }, []);
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Route />
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Route />
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 };

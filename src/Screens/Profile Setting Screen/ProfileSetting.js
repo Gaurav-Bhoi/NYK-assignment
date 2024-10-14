@@ -161,9 +161,10 @@ const ProfileSetting = ({navigation}) => {
     setOpenPopup(true);
   };
 
-  const onPressSubmit = values => {
+  const onPressSubmit = (values, {resetForm}) => {
     dispatch({type: AllActions.SET_USER_DETAILS, payload: values});
     navigation.navigate(Screens.TabNavigation);
+    resetForm();
   };
 
   return (

@@ -2,11 +2,11 @@ import {AllActions} from '../actionIndex';
 
 const initialState = {
   userDetails: {
-    userName: 'Test',
-    email: 'test@gmail.com',
-    phone: '7028189930',
-    desc: 'dsjsdjgpsjpsjpodsf',
-    birthDate: '12/02/98',
+    userName: '',
+    email: '',
+    phone: '',
+    desc: '',
+    birthDate: '',
     profileType: 'icon',
     profilePic: '',
   },

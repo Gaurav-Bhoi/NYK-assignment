@@ -1,5 +1,5 @@
-import {Alert, Image, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import {Alert, Image, StyleSheet, Text, ToastAndroid, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import BottomModal from '../../Components/Bottom Modal/BottomModal';
 import Screens from '../screenIndex';
 import {
@@ -18,16 +18,23 @@ import {
 } from '@react-native-google-signin/google-signin';
 import {loginFb} from '../../Helper/FacebookHelper';
 import {useFocusEffect} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {AllActions} from '../../Store/actionIndex';
 
 const WelcomeScreen = ({navigation}) => {
   const [openPopup, setOpenPopup] = useState(true);
+  const dispatch = useDispatch();
+  const loginStatus = useSelector(state => state.auth.isUserLoggedin);
   const [mode, setMode] = useState('login');
 
-  useFocusEffect(
-    useCallback(() => {
+  useEffect(() => {
+    if (loginStatus) {
+      setOpenPopup(false);
+      navigation.navigate(Screens.TabNavigation);
+    } else {
       setOpenPopup(true);
-    }, []),
-  );
+    }
+  }, [loginStatus, navigation]);
 
   const renderMailIcon = () => {
     return (
@@ -118,6 +125,22 @@ const WelcomeScreen = ({navigation}) => {
     try {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
+      setOpenPopup(false);
+      dispatch({
+        type: AllActions.SET_USER_DETAILS,
+        payload: {
+          userName: response.data.user.name,
+          email: response.data.user.email,
+          profileType: 'image',
+          profilePic: response.data.user.photo,
+        },
+      });
+      dispatch({type: AllActions.SET_LOGIN_STATUS, payload: true});
+
+      navigation.navigate(Screens.TabNavigation, {
+        screen: Screens.SignupRoute,
+      });
+
       if (response) {
       } else {
       }
@@ -154,6 +177,16 @@ const WelcomeScreen = ({navigation}) => {
 
   const onClose = () => {
     setOpenPopup(false);
+  };
+
+  const onPressApple = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      'This functionality is only available in apple devices',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50,
+    );
   };
 
   return (
@@ -204,6 +237,7 @@ const WelcomeScreen = ({navigation}) => {
           buttonContainerStyle={styles.buttonContainerStyle2}
           isImage={true}
           ImageComponent={renderAppleIcon}
+          configureOnPress={onPressApple}
         />
       </View>
     </BottomModal>
