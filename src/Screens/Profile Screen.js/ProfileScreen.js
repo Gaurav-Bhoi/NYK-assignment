@@ -1,12 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import CommonScreen from '../../Components/CommonScreen/CommonScreen';
 
 const ProfileScreen = () => {
-  return (
-    <View>
-      <Text>ProfileScreen</Text>
-    </View>
-  );
+  return <CommonScreen></CommonScreen>;
 };
 
 export default ProfileScreen;

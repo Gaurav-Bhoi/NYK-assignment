@@ -1,10 +1,9 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Screens from '../screenIndex';
 import HomeScreen from '../Home Screen/HomeScreen';
 import MessageScreen from '../Message Screen/MessageScreen';
-
 import NotificationScreen from '../Notification Screen/NotificationScreen';
 import ProfileScreen from '../Profile Screen.js/ProfileScreen';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -14,14 +13,10 @@ import Colors from '../../Assets/Colors';
 import {Responsive} from '../../Assets/Responsive';
 import {Images} from '../../Assets/ImageIndex';
 import CreatePostScreen from '../Post Screen/CreatePostScreen';
-import {useRoute} from '@react-navigation/native';
-import CreatePostComponent from '../Post Screen/CreatePostComponent';
-import {getHeaderTitle} from '@react-navigation/elements';
 
 const TabNavigation = ({navigation}) => {
   const Tab = createBottomTabNavigator();
-  const [showPopup, setShowPopup] = useState(false);
-  // console.log('this is showpopup', showPopup);
+
   return (
     <>
       <Tab.Navigator
@@ -36,21 +31,9 @@ const TabNavigation = ({navigation}) => {
             tabBarStyle: {zIndex: 9999999},
           };
         }}>
-        <Tab.Screen
-          name={Screens.HomeScreen}
-          component={HomeScreen}
-          initialParams={{setShowPopup}}
-        />
-        <Tab.Screen
-          name={Screens.MessageScreen}
-          component={MessageScreen}
-          initialParams={{setShowPopup}}
-        />
-        <Tab.Screen
-          name={Screens.PostScreen}
-          component={CreatePostScreen}
-          initialParams={{setShowPopup}}
-        />
+        <Tab.Screen name={Screens.HomeScreen} component={HomeScreen} />
+        <Tab.Screen name={Screens.MessageScreen} component={MessageScreen} />
+        <Tab.Screen name={Screens.PostScreen} component={CreatePostScreen} />
         <Tab.Screen
           name={Screens.NotificationScreen}
           component={NotificationScreen}
@@ -60,16 +43,9 @@ const TabNavigation = ({navigation}) => {
               backgroundColor: Colors.primaryColor,
             },
           }}
-          initialParams={{setShowPopup}}
         />
-        <Tab.Screen
-          name={Screens.ProfileScreen}
-          component={ProfileScreen}
-          initialParams={{setShowPopup}}
-        />
+        <Tab.Screen name={Screens.ProfileScreen} component={ProfileScreen} />
       </Tab.Navigator>
-
-      {/* <CreatePostComponent /> */}
     </>
   );
 };
@@ -79,16 +55,16 @@ export default TabNavigation;
 const styles = StyleSheet.create({
   createPostIconContainer: {
     height: Responsive(50),
-    width: Responsive(60),
+    width: Responsive(50),
     backgroundColor: Colors.white,
     borderRadius: Responsive(50),
-    marginBottom: Responsive(25),
+    marginBottom: Responsive(10),
     justifyContent: 'center',
     alignItems: 'center',
   },
   createPostIcon: {
-    height: Responsive(40),
-    width: Responsive(40),
+    height: Responsive(35),
+    width: Responsive(35),
   },
 });
 

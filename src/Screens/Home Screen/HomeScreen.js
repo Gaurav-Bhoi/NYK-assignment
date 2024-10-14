@@ -2,9 +2,7 @@ import {FlatList, InteractionManager, StyleSheet, View} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {posts} from '../../Assets/Const';
 import PostComponent from '../../Components/Post Component/PostComponent';
-import {useDispatch, useSelector} from 'react-redux';
-import {callApi} from '../../Helper/AxiosHelper';
-import Colors from '../../Assets/Colors';
+import HeaderComponent from '../../Components/Header Component/HeaderComponent';
 
 const HomeScreen = () => {
   const [page, setPage] = useState(1);
@@ -31,6 +29,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.flatlistContainer}>
+      <HeaderComponent isHeader isAppLogo isSearchBar />
       <FlatList
         data={updatedPosts}
         renderItem={renderItem}

@@ -1,27 +1,26 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {Alert} from 'react-native';
+import {AllActions} from '../actionIndex';
 
 const initialState = {
-  userDetails: {},
+  userDetails: {
+    userName: '',
+    email: '',
+    phone: '',
+    desc: '',
+    birthDate: '',
+    profileType: 'icon',
+    profilePic: '',
+  },
   userCreds: {},
 };
 
-const user = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {
-    setUserDetails: (state, action) => {
-      console.log('this is actions', action);
-      return state;
-    },
-    setUserCreds: (state, action) => {
-      Alert.alert('lol');
-      console.log('this is action', action);
-      return state;
-    },
-  },
-});
+export const userReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case AllActions.SET_USER_DETAILS: {
+      return {...state, userDetails: action.payload};
+    }
 
-export const {setUserCreds, setUserDetails} = user.actions;
-
-export default user.reducer;
+    default: {
+      return state;
+    }
+  }
+};

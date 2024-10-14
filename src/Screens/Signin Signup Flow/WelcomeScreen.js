@@ -20,6 +20,8 @@ import {loginFb} from '../../Helper/FacebookHelper';
 
 const WelcomeScreen = ({navigation}) => {
   const [openPopup, setOpenPopup] = useState(true);
+  const [mode, setMode] = useState('login');
+
   const renderMailIcon = () => {
     return (
       <View style={styles.iconContainer}>
@@ -43,18 +45,23 @@ const WelcomeScreen = ({navigation}) => {
     );
   };
 
+  const onPressSignup = () => {
+    setMode(mode === 'login' ? 'signup' : 'login');
+  };
+
   const renderSigninComponent = () => {
     return (
       <View style={styles.signinContainer}>
         <Text style={[infoTextStyle, {marginRight: Responsive(6)}]}>
-          Don't have an account
+          {mode !== 'signup' ? `I don't have an account` : `I have an account`}
         </Text>
         <Text
           style={[
             infoTextStyle,
             {color: Colors.primaryColor, fontSize: Responsive(11)},
-          ]}>
-          Signup
+          ]}
+          onPress={onPressSignup}>
+          {mode !== 'login' ? 'Login' : 'Signup'}
         </Text>
       </View>
     );
@@ -125,6 +132,7 @@ const WelcomeScreen = ({navigation}) => {
     setOpenPopup(false);
     navigation.navigate(Screens.LoginSection, {
       type,
+      mode,
       // startAnimation: 'slide-to-left',
     });
   };
@@ -149,14 +157,14 @@ const WelcomeScreen = ({navigation}) => {
           Welcome To NYK
         </Text>
         <Button1
-          title="Login with Email"
+          title={mode === 'login' ? 'Login with Email' : 'Signup with Email'}
           buttonContainerStyle={styles.buttonContainerStyle}
           isIcon={true}
           IconComponent={renderMailIcon}
           configureOnPress={() => onPressEmailLogin('email')}
         />
         <Button1
-          title="Login with Phone"
+          title={mode === 'login' ? 'Login with Phone' : 'Signup with Phone'}
           buttonContainerStyle={styles.buttonContainerStyle2}
           isIcon={true}
           IconComponent={renderPhoneIcon}

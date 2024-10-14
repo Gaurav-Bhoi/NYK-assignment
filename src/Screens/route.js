@@ -13,8 +13,8 @@ const Route = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={Screens.TabNavigation} component={TabNavigation} />
       <Stack.Screen name={Screens.SignupRoute} component={SignupRoute} />
+      <Stack.Screen name={Screens.TabNavigation} component={TabNavigation} />
       <Stack.Screen
         name={Screens.ProfileSettingScreen}
         component={ProfileSetting}

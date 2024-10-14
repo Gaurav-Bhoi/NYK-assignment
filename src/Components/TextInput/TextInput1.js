@@ -12,6 +12,7 @@ import {infoTextStyle, regularTextStyle} from '../../CommonStyles/CommonStyles';
 
 const TextInput1 = ({
   buttonContainerStyle = {},
+  isMultiline = false,
   configureTextChange = () => {},
   placeHolder = '',
   keyboardType = 'default',
@@ -22,12 +23,11 @@ const TextInput1 = ({
   isEditable = true,
   customTextStyle = {},
   configureOnPress = () => {},
+  name = '',
 }) => {
-  const [text, setText] = useState('');
-
-  useEffect(() => {
+  const onChange = text => {
     configureTextChange(text);
-  }, [text, configureTextChange]);
+  };
 
   return (
     <View style={mainContainer}>
@@ -35,9 +35,11 @@ const TextInput1 = ({
       <View style={[styles.buttonContainer, buttonContainerStyle]}>
         <TouchableOpacity style={styles.input} onPress={configureOnPress}>
           <TextInput
+            name={name}
+            multiline
             style={[styles.input, regularTextStyle, customTextStyle]}
-            onChangeText={setText}
-            value={text}
+            onChangeText={onChange}
+            value={textValue}
             placeholder={placeHolder}
             defaultValue={textValue}
             keyboardType={keyboardType}
