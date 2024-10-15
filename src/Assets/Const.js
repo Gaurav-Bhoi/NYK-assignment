@@ -9,7 +9,7 @@ export const posts = [
     description:
       'The scientist carefully examined the data collected from the laboratory experiment, ensuring that every detail was accurate, and proceeded to analyze the results with great precision, leading to new discoveries and insights.',
     imageArray: [
-      '{"uri":"https://picsum.photos/id/988/1920/1927"}',
+      '{"uri":"https://picsum.photos/id/988/1920/1927.jpg"}',
       '{"uri":"https://picsum.photos/id/547/1920/1984"}',
       '{"uri":"https://picsum.photos/id/39/1920/1793"}',
     ],
