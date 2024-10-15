@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useCallback} from 'react';
+import React, {memo, useCallback, useRef, useState} from 'react';
 import CommonScreen from '../../Components/CommonScreen/CommonScreen';
 import HeaderComponent from '../../Components/Header Component/HeaderComponent';
 import {useDispatch, useSelector} from 'react-redux';
@@ -23,9 +23,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
 import Screens from '../screenIndex';
 import {AllActions} from '../../Store/actionIndex';
+import Video from 'react-native-video';
 
 const ProfileScreen = ({navigation}) => {
   const profile = useSelector(state => state.user.userDetails);
+  const [videoStatus, setVideoStatus] = useState(false);
   const userPosts = useSelector(state => state.user.userPosts);
   const dispatch = useDispatch();
   const formattedPosts = useCallback(() => {
@@ -78,19 +80,24 @@ const ProfileScreen = ({navigation}) => {
   };
 
   const renderPosts = ({item}) => {
+    console.log('this is my item', item);
     if (item.isEmpty) {
       return <View style={[styles.emptyContent, styles.content]} />;
     }
 
-    return (
-      <View style={[styles.content, styles.s6]}>
-        <FastImage
-          source={{uri: item.uri, priority: FastImage.priority.high}}
-          resizeMode={FastImage.resizeMode.contain}
-          style={styles.contentImage}
-        />
-      </View>
-    );
+    if (item.type === 'image/jpeg') {
+      return (
+        <View style={[styles.content, styles.s6]}>
+          <FastImage
+            source={{uri: item.uri, priority: FastImage.priority.high}}
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.contentImage}
+          />
+        </View>
+      );
+    } else if (item.type === 'video/mp4') {
+      return <VideoPlayer item={item} />;
+    }
   };
 
   const flHeader = () => {
@@ -325,4 +332,30 @@ const styles = StyleSheet.create({
     borderRadius: Responsive(5),
     backgroundColor: '#0A0404',
   },
+});
+
+const VideoPlayer = memo(({item}) => {
+  const videoRef = useRef(null);
+  const [playingVideoIds, setPlayingVideoIds] = useState([]);
+
+  const onViewableItemsChanged = ({viewableItems}) => {
+    const visibleIds = viewableItems.map(item => item.item.id);
+    setPlayingVideoIds(visibleIds); // Play videos that are visible
+  };
+  return (
+    <View style={[styles.content, styles.s6]}>
+      <Video
+        source={{uri: item.uri}}
+        controls={false}
+        repeat
+        ref={videoRef}
+        paused={true}
+        resizeMode="contain"
+        style={styles.contentImage}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={{itemVisiblePercentThreshold: 50}}
+        removeClippedSubviews={true}
+      />
+    </View>
+  );
 });
