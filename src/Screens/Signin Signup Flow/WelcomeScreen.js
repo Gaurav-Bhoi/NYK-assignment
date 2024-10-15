@@ -27,14 +27,16 @@ const WelcomeScreen = ({navigation}) => {
   const loginStatus = useSelector(state => state.auth.isUserLoggedin);
   const [mode, setMode] = useState('login');
 
-  useEffect(() => {
-    if (loginStatus) {
-      setOpenPopup(false);
-      navigation.navigate(Screens.TabNavigation);
-    } else {
-      setOpenPopup(true);
-    }
-  }, [loginStatus, navigation]);
+  useFocusEffect(
+    useCallback(() => {
+      if (loginStatus) {
+        setOpenPopup(false);
+        navigation.navigate(Screens.TabNavigation);
+      } else {
+        setOpenPopup(true);
+      }
+    }, [loginStatus, navigation]),
+  );
 
   const renderMailIcon = () => {
     return (

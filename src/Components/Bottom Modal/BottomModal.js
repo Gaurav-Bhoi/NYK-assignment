@@ -3,7 +3,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import Colors from '../../Assets/Colors';
 import {Responsive} from '../../Assets/Responsive';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Screens from '../../Screens/screenIndex';
 
 const BottomModal = ({
   children,
@@ -50,7 +51,7 @@ const BottomModal = ({
   };
 
   const onPressBack = () => {
-    navigation.pop();
+    navigation.goBack();
   };
 
   const backButton = () => {
@@ -59,8 +60,8 @@ const BottomModal = ({
     }
     return (
       <TouchableOpacity style={styles.arrowContainer} onPress={onPressBack}>
-        <AntDesign
-          name="arrowleft"
+        <Ionicons
+          name="chevron-back"
           size={Responsive(20)}
           color={Colors.primaryColor}
         />
@@ -81,6 +82,7 @@ const BottomModal = ({
 
       <View style={[styles.centeredView]}>
         {dragger()}
+        {backButton()}
         {closeButton()}
         <View style={[styles.animViewStyle]}>{children}</View>
       </View>

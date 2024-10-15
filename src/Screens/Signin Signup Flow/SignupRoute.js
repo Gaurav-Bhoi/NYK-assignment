@@ -23,7 +23,6 @@ const SignupRoute = () => {
       <Image source={Images.nykWhiteLogo} style={styles.logo} />
       <Stack.Navigator>
         <Stack.Screen name={Screens.WelcomeScreen} component={WelcomeScreen} />
-        <Stack.Screen name={Screens.SignupSection} component={SignupSection} />
         <Stack.Screen name={Screens.LoginSection} component={LoginSection} />
       </Stack.Navigator>
     </CommonScreen>
