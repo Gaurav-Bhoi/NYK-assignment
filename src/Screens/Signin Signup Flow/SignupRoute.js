@@ -13,6 +13,7 @@ import Screens from '../screenIndex';
 import WelcomeScreen from './WelcomeScreen';
 import SignupSection from './SignupSection';
 import LoginSection from './LoginSection';
+import CodepushModal from '../../Components/Codepush Modal/CodepushModal';
 
 const SignupRoute = () => {
   const Stack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ const SignupRoute = () => {
         <Stack.Screen name={Screens.WelcomeScreen} component={WelcomeScreen} />
         <Stack.Screen name={Screens.LoginSection} component={LoginSection} />
       </Stack.Navigator>
+      <CodepushModal />
     </CommonScreen>
   );
 };
