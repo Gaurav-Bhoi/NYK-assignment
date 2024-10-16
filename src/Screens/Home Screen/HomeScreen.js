@@ -1,5 +1,5 @@
 import {FlatList, InteractionManager, StyleSheet, View} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useEffect, useState} from 'react';
 import {posts} from '../../Assets/Const';
 import PostComponent from '../../Components/Post Component/PostComponent';
 import HeaderComponent from '../../Components/Header Component/HeaderComponent';
@@ -23,26 +23,21 @@ const HomeScreen = () => {
     setPage(page + 1);
   }, [page]);
 
-  const renderItem = useCallback(({item}) => {
-    return <PostComponent item={item} />;
-  }, []);
-
   return (
     <View style={styles.flatlistContainer}>
       <HeaderComponent isHeader isAppLogo isSearchBar />
       <FlatList
         data={updatedPosts}
-        renderItem={renderItem}
+        renderItem={({item}) => <RenderItem item={item} />}
         keyExtractor={Math.random}
         contentContainerStyle={styles.mainContainerStyle}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         disableVirtualization={false}
-        onEndReachedThreshold={1}
-        initialNumToRender={5}
-        maxToRenderPerBatch={5}
+        initialNumToRender={1}
+        maxToRenderPerBatch={3}
         removeClippedSubviews={true}
-        windowSize={5}
+        windowSize={3}
       />
     </View>
   );
@@ -58,3 +53,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+const RenderItem = memo(({item}) => <PostComponent item={item} />);

@@ -1,6 +1,8 @@
 const Colors = {
   primaryColor: '#DA012D',
   primaryLightColor: '#E54B6A',
+  like: '#065CCD',
+  unlike: '#EE0100',
   white: '#FFFFFF',
   buttonInActiveGray: '#75797C',
   black: '#000000',
