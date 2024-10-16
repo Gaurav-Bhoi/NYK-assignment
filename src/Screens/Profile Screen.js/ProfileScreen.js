@@ -303,6 +303,7 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: Responsive(20),
+    marginBottom: Responsive(10),
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
   },

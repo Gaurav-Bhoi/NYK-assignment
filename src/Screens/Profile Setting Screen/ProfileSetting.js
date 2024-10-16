@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
   buttonContainerStyle2: {marginTop: Responsive(10)},
   infoContainer: {
     marginTop: Responsive(15),
-    height: Responsive(550),
+    height: Responsive(500),
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',

@@ -36,7 +36,7 @@ const TextInput1 = ({
         <TouchableOpacity style={styles.input} onPress={configureOnPress}>
           <TextInput
             name={name}
-            multiline
+            multiline={isMultiline}
             style={[styles.input, regularTextStyle, customTextStyle]}
             onChangeText={onChange}
             value={textValue}

@@ -46,11 +46,12 @@ const HeaderComponent = React.memo(
         {isSearchBar && (
           <TextInput1
             mainContainer={{width: '60%'}}
+            isMultiline={false}
             buttonContainerStyle={[styles.buttonContainerStyle2]}
             configureTextChange={text => onChangePassword(text)}
             textValue={search}
             placeHolder="Search here . . ."
-            isPassword
+            isPassword={false}
           />
         )}
       </View>
