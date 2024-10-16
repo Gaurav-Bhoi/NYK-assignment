@@ -17,6 +17,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/1.jpg',
     title: 'A dog examined on the stage eagerly.',
     userName: 'Jerry',
+    id: 1,
   },
   {
     description:
@@ -33,6 +34,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/2.jpg',
     title: 'A dog learned an experiment silently.',
     userName: 'Christopher',
+    id: 2,
   },
   {
     description:
@@ -47,6 +49,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/3.jpg',
     title: 'The scientist studied an experiment quickly.',
     userName: 'Mark',
+    id: 3,
   },
   {
     description:
@@ -59,6 +62,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/4.jpg',
     title: 'The engineer drew a creative solution silently.',
     userName: 'Sandra',
+    id: 4,
   },
   {
     description:
@@ -72,6 +76,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/5.jpg',
     title: 'A dancer investigated a new idea loudly.',
     userName: 'Carolyn',
+    id: 5,
   },
   {
     description:
@@ -85,6 +90,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/6.jpg',
     title: 'A farmer learned a new idea professionally.',
     userName: 'Jerry',
+    id: 6,
   },
   {
     description:
@@ -104,6 +110,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/7.jpg',
     title: 'The scientist presented with a friend skillfully.',
     userName: 'Virginia',
+    id: 7,
   },
   {
     description:
@@ -119,6 +126,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/8.jpg',
     title: 'The scientist drew in the garden silently.',
     userName: 'Timothy',
+    id: 8,
   },
   {
     description:
@@ -135,6 +143,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/9.jpg',
     title: 'The musician learned on the stage quietly.',
     userName: 'Gary',
+    id: 9,
   },
   {
     description:
@@ -154,6 +163,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/10.jpg',
     title: 'The musician worked a delicious dish enthusiastically.',
     userName: 'Brenda',
+    id: 10,
   },
   {
     description:
@@ -166,6 +176,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/11.jpg',
     title: 'My friend played a tasty meal diligently.',
     userName: 'Emma',
+    id: 11,
   },
   {
     description:
@@ -175,6 +186,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/12.jpg',
     title: 'The team read a difficult question brilliantly.',
     userName: 'Maria',
+    id: 12,
   },
   {
     description:
@@ -192,6 +204,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/13.jpg',
     title: 'The chef studied a great song thoughtfully.',
     userName: 'Ronald',
+    id: 13,
   },
   {
     description:
@@ -210,6 +223,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/14.jpg',
     title: 'A dog explained in the laboratory gracefully.',
     userName: 'Donna',
+    id: 14,
   },
   {
     description:
@@ -225,6 +239,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/15.jpg',
     title: 'The cat built an experiment eagerly.',
     userName: 'Kimberly',
+    id: 15,
   },
   {
     description:
@@ -238,6 +253,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/16.jpg',
     title: 'The driver read an experiment energetically.',
     userName: 'Jessica',
+    id: 16,
   },
   {
     description:
@@ -255,6 +271,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/17.jpg',
     title: 'My friend designed a delicious dish eagerly.',
     userName: 'Amy',
+    id: 17,
   },
   {
     description:
@@ -274,6 +291,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/18.jpg',
     title: 'A dog danced a complex problem quickly.',
     userName: 'Rachel',
+    id: 18,
   },
   {
     description:
@@ -286,6 +304,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/19.jpg',
     title: 'The chef designed an experiment creatively.',
     userName: 'Alexander',
+    id: 19,
   },
   {
     description:
@@ -299,6 +318,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/20.jpg',
     title: 'The engineer examined a difficult question skillfully.',
     userName: 'Nicole',
+    id: 20,
   },
   {
     description:
@@ -313,6 +333,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/21.jpg',
     title: 'The engineer wrote a difficult question carefully.',
     userName: 'Betty',
+    id: 21,
   },
   {
     description:
@@ -330,6 +351,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/22.jpg',
     title: 'The professor explained on the stage creatively.',
     userName: 'Larry',
+    id: 22,
   },
   {
     description:
@@ -344,6 +366,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/23.jpg',
     title: 'A student played a creative solution happily.',
     userName: 'Larry',
+    id: 23,
   },
   {
     description:
@@ -360,6 +383,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/24.jpg',
     title: 'The president studied a book quietly.',
     userName: 'Brian',
+    id: 24,
   },
   {
     description:
@@ -374,6 +398,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/25.jpg',
     title: 'The engineer learned a tasty meal curiously.',
     userName: 'Kathleen',
+    id: 25,
   },
   {
     description:
@@ -386,6 +411,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/26.jpg',
     title: 'The team read a challenging project thoughtfully.',
     userName: 'Andrew',
+    id: 26,
   },
   {
     description:
@@ -399,6 +425,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/27.jpg',
     title: 'My friend danced a new idea creatively.',
     userName: 'Michael',
+    id: 27,
   },
   {
     description:
@@ -416,6 +443,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/28.jpg',
     title: 'A dog drew an experiment quietly.',
     userName: 'Lisa',
+    id: 28,
   },
   {
     description:
@@ -431,6 +459,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/29.jpg',
     title: 'An artist investigated a complex problem gracefully.',
     userName: 'Emma',
+    id: 29,
   },
   {
     description:
@@ -446,6 +475,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/30.jpg',
     title: 'The chef worked in the laboratory happily.',
     userName: 'Ruth',
+    id: 30,
   },
   {
     description:
@@ -464,6 +494,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/31.jpg',
     title: 'A child cooked an experiment patiently.',
     userName: 'Rebecca',
+    id: 31,
   },
   {
     description:
@@ -481,6 +512,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/32.jpg',
     title: 'An artist explored on the field brilliantly.',
     userName: 'Pamela',
+    id: 32,
   },
   {
     description:
@@ -490,6 +522,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/33.jpg',
     title: 'An artist built with a friend creatively.',
     userName: 'Kenneth',
+    id: 33,
   },
   {
     description:
@@ -499,6 +532,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/34.jpg',
     title: 'The professor studied a great song creatively.',
     userName: 'Daniel',
+    id: 34,
   },
   {
     description:
@@ -508,6 +542,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/35.jpg',
     title: 'The team sang an experiment patiently.',
     userName: 'Christine',
+    id: 35,
   },
   {
     description:
@@ -517,6 +552,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/36.jpg',
     title: 'The professor worked a tasty meal enthusiastically.',
     userName: 'Brandon',
+    id: 36,
   },
   {
     description:
@@ -526,6 +562,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/37.jpg',
     title: 'The scientist jumped an experiment diligently.',
     userName: 'Benjamin',
+    id: 37,
   },
   {
     description:
@@ -535,6 +572,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/38.jpg',
     title: 'My friend helped with the team gracefully.',
     userName: 'Susan',
+    id: 38,
   },
   {
     description:
@@ -544,6 +582,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/39.jpg',
     title: 'The writer explored a challenging project curiously.',
     userName: 'Carol',
+    id: 39,
   },
   {
     description:
@@ -562,6 +601,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/40.jpg',
     title: 'The bird learned a delicious dish eagerly.',
     userName: 'Nicole',
+    id: 40,
   },
   {
     description:
@@ -580,6 +620,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/41.jpg',
     title: 'A dog wrote on the stage energetically.',
     userName: 'Elizabeth',
+    id: 41,
   },
   {
     description:
@@ -595,6 +636,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/42.jpg',
     title: 'The bird presented in the laboratory diligently.',
     userName: 'Deborah',
+    id: 42,
   },
   {
     description:
@@ -614,6 +656,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/43.jpg',
     title: 'A farmer ran in the garden eagerly.',
     userName: 'Stephen',
+    id: 43,
   },
   {
     description:
@@ -631,6 +674,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/44.jpg',
     title: 'A farmer discovered a book silently.',
     userName: 'Steven',
+    id: 44,
   },
   {
     description:
@@ -647,6 +691,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/45.jpg',
     title: 'The scientist learned a beautiful picture curiously.',
     userName: 'Jacob',
+    id: 45,
   },
   {
     description:
@@ -659,6 +704,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/46.jpg',
     title: 'The scientist talked an experiment happily.',
     userName: 'Timothy',
+    id: 46,
   },
   {
     description:
@@ -676,6 +722,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/47.jpg',
     title: 'An artist read a difficult question carefully.',
     userName: 'Linda',
+    id: 47,
   },
   {
     description:
@@ -695,6 +742,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/48.jpg',
     title: 'A farmer built with the team brilliantly.',
     userName: 'Donald',
+    id: 48,
   },
   {
     description:
@@ -711,6 +759,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/49.jpg',
     title: 'An artist talked a delicious dish eagerly.',
     userName: 'Sarah',
+    id: 49,
   },
   {
     description:
@@ -720,6 +769,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/50.jpg',
     title: 'A farmer sang during the meeting creatively.',
     userName: 'Alexander',
+    id: 50,
   },
   {
     description:
@@ -729,6 +779,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/51.jpg',
     title: 'The teacher jumped with a friend eagerly.',
     userName: 'Margaret',
+    id: 51,
   },
   {
     description:
@@ -744,6 +795,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/52.jpg',
     title: 'The bird presented a challenging project diligently.',
     userName: 'Christine',
+    id: 52,
   },
   {
     description:
@@ -758,6 +810,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/53.jpg',
     title: 'A child presented in the laboratory silently.',
     userName: 'Kevin',
+    id: 53,
   },
   {
     description:
@@ -777,6 +830,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/54.jpg',
     title: 'The driver explained a creative solution professionally.',
     userName: 'Christopher',
+    id: 54,
   },
   {
     description:
@@ -792,6 +846,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/55.jpg',
     title: 'The engineer built at the park carefully.',
     userName: 'Heather',
+    id: 55,
   },
   {
     description:
@@ -811,6 +866,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/56.jpg',
     title: 'The bird examined a book enthusiastically.',
     userName: 'Sharon',
+    id: 56,
   },
   {
     description:
@@ -820,6 +876,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/57.jpg',
     title: 'An artist played a book diligently.',
     userName: 'Samantha',
+    id: 57,
   },
   {
     description:
@@ -835,6 +892,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/58.jpg',
     title: 'The bird examined in the garden enthusiastically.',
     userName: 'Debra',
+    id: 58,
   },
   {
     description:
@@ -851,6 +909,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/59.jpg',
     title: 'The professor learned at the park happily.',
     userName: 'Laura',
+    id: 59,
   },
   {
     description:
@@ -865,6 +924,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/60.jpg',
     title: 'A student worked a difficult question happily.',
     userName: 'Kevin',
+    id: 60,
   },
   {
     description:
@@ -881,6 +941,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/61.jpg',
     title: 'My friend sang a great song happily.',
     userName: 'Barbara',
+    id: 61,
   },
   {
     description:
@@ -900,6 +961,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/62.jpg',
     title: 'The driver sang in the laboratory loudly.',
     userName: 'Heather',
+    id: 62,
   },
   {
     description: undefined,
@@ -916,6 +978,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/63.jpg',
     title: 'The musician studied a difficult question eagerly.',
     userName: 'Charles',
+    id: 63,
   },
   {
     description: undefined,
@@ -932,6 +995,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/64.jpg',
     title: 'The scientist jumped at the park carefully.',
     userName: 'Karen',
+    id: 64,
   },
   {
     description: undefined,
@@ -946,6 +1010,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/65.jpg',
     title: 'A student played a new idea happily.',
     userName: 'William',
+    id: 65,
   },
   {
     description: undefined,
@@ -960,6 +1025,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/66.jpg',
     title: 'The team wrote a creative solution energetically.',
     userName: 'Helen',
+    id: 66,
   },
   {
     description: undefined,
@@ -968,6 +1034,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/67.jpg',
     title: 'The president presented with a friend gracefully.',
     userName: 'Edward',
+    id: 67,
   },
   {
     description: undefined,
@@ -976,6 +1043,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/68.jpg',
     title: 'My friend discovered during the meeting quickly.',
     userName: 'Scott',
+    id: 68,
   },
   {
     description: undefined,
@@ -992,6 +1060,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/69.jpg',
     title: 'The bird wrote on the field patiently.',
     userName: 'Patrick',
+    id: 69,
   },
   {
     description: undefined,
@@ -1000,6 +1069,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/70.jpg',
     title: 'My friend presented a difficult question creatively.',
     userName: 'Dorothy',
+    id: 70,
   },
   {
     description: undefined,
@@ -1015,6 +1085,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/71.jpg',
     title: 'The scientist danced with a friend professionally.',
     userName: 'Michael',
+    id: 71,
   },
   {
     description: undefined,
@@ -1030,6 +1101,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/72.jpg',
     title: 'A dancer talked a challenging project cheerfully.',
     userName: 'Carolyn',
+    id: 72,
   },
   {
     description: undefined,
@@ -1038,6 +1110,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/73.jpg',
     title: 'The team talked on the stage loudly.',
     userName: 'Jessica',
+    id: 73,
   },
   {
     description: undefined,
@@ -1051,6 +1124,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/74.jpg',
     title: 'The teacher played an experiment enthusiastically.',
     userName: 'Margaret',
+    id: 74,
   },
   {
     description: undefined,
@@ -1062,6 +1136,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/75.jpg',
     title: 'The writer presented on the computer curiously.',
     userName: 'Sarah',
+    id: 75,
   },
   {
     description: undefined,
@@ -1075,6 +1150,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/76.jpg',
     title: 'A child examined on the stage brilliantly.',
     userName: 'Anna',
+    id: 76,
   },
   {
     description: undefined,
@@ -1090,6 +1166,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/77.jpg',
     title: 'The teacher explored a book energetically.',
     userName: 'Angela',
+    id: 77,
   },
   {
     description: undefined,
@@ -1106,6 +1183,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/78.jpg',
     title: 'The bird built in the laboratory professionally.',
     userName: 'Jonathan',
+    id: 78,
   },
   {
     description: undefined,
@@ -1121,6 +1199,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/79.jpg',
     title: 'The president read with the team happily.',
     userName: 'Jonathan',
+    id: 79,
   },
   {
     description: undefined,
@@ -1132,6 +1211,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/80.jpg',
     title: 'The actor helped a delicious dish happily.',
     userName: 'Jeffrey',
+    id: 80,
   },
   {
     description: undefined,
@@ -1140,6 +1220,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/81.jpg',
     title: 'The cat helped with a friend creatively.',
     userName: 'Amanda',
+    id: 81,
   },
   {
     description: undefined,
@@ -1155,6 +1236,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/82.jpg',
     title: 'The teacher danced in the garden eagerly.',
     userName: 'Ashley',
+    id: 82,
   },
   {
     description: undefined,
@@ -1163,6 +1245,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/83.jpg',
     title: 'The engineer studied a difficult question energetically.',
     userName: 'Joshua',
+    id: 83,
   },
   {
     description: undefined,
@@ -1177,6 +1260,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/84.jpg',
     title: undefined,
     userName: 'Patrick',
+    id: 84,
   },
   {
     description: undefined,
@@ -1193,6 +1277,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/85.jpg',
     title: undefined,
     userName: 'Richard',
+    id: 85,
   },
   {
     description: undefined,
@@ -1201,6 +1286,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/86.jpg',
     title: undefined,
     userName: 'Eric',
+    id: 86,
   },
   {
     description: undefined,
@@ -1212,6 +1298,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/87.jpg',
     title: undefined,
     userName: 'Robert',
+    id: 87,
   },
   {
     description: undefined,
@@ -1225,6 +1312,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/88.jpg',
     title: undefined,
     userName: 'Patricia',
+    id: 88,
   },
   {
     description: undefined,
@@ -1242,6 +1330,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/89.jpg',
     title: undefined,
     userName: 'Stephanie',
+    id: 89,
   },
   {
     description: undefined,
@@ -1258,6 +1347,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/90.jpg',
     title: undefined,
     userName: 'Brian',
+    id: 90,
   },
   {
     description: undefined,
@@ -1272,6 +1362,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/91.jpg',
     title: undefined,
     userName: 'Tyler',
+    id: 91,
   },
   {
     description: undefined,
@@ -1284,6 +1375,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/92.jpg',
     title: undefined,
     userName: 'George',
+    id: 92,
   },
   {
     description: undefined,
@@ -1298,6 +1390,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/93.jpg',
     title: undefined,
     userName: 'Shirley',
+    id: 93,
   },
   {
     description: undefined,
@@ -1315,6 +1408,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/94.jpg',
     title: undefined,
     userName: 'Helen',
+    id: 94,
   },
   {
     description: undefined,
@@ -1323,6 +1417,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/95.jpg',
     title: undefined,
     userName: 'Thomas',
+    id: 95,
   },
   {
     description: undefined,
@@ -1340,6 +1435,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/96.jpg',
     title: undefined,
     userName: 'Amy',
+    id: 96,
   },
   {
     description: undefined,
@@ -1348,6 +1444,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/97.jpg',
     title: undefined,
     userName: 'Jack',
+    id: 97,
   },
   {
     description: undefined,
@@ -1356,6 +1453,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/98.jpg',
     title: undefined,
     userName: 'Rachel',
+    id: 98,
   },
   {
     description: undefined,
@@ -1374,6 +1472,7 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/99.jpg',
     title: undefined,
     userName: 'Carol',
+    id: 99,
   },
   {
     description: undefined,
@@ -1390,5 +1489,6 @@ export const posts = [
     profilePic: 'https://randomuser.me/api/portraits/men/100.jpg',
     title: undefined,
     userName: 'Raymond',
+    id: 100,
   },
 ];
