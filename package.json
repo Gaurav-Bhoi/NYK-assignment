@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
+    "androidAssets": "sudo npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
     "codepushAndroid": "appcenter codepush release-react -a gaurav-bhoi/NYK-Android -d Staging"
   },
   "dependencies": {
