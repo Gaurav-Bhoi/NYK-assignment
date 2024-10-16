@@ -166,6 +166,7 @@ const CreatePostScreen = ({navigation}) => {
                     placeHolder={`Enter description for this post here . . .`}
                     mainContainer={styles.buttonContainerStyle2}
                     customTextStyle={styles.bioStyle}
+                    isMultiline
                   />
 
                   {submitPressed && errors.postDesc && (

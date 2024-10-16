@@ -34,10 +34,10 @@ const PostComponent = React.memo(({item}) => {
 
   const onViewCallBack = useCallback(
     item => {
-      const index = item?.viewableItems[0]?.index;
-      if (index) {
+      try {
+        const index = item?.viewableItems[0]?.index;
         setCurrIndex(index);
-      }
+      } catch {}
     },
     [setCurrIndex],
   );
@@ -259,6 +259,7 @@ const CorouselImage = React.memo(({newImage, width, index, currIndex}) => {
                 ? {
                     uri: imageData.uri,
                     priority: FastImage.priority.high,
+                    cache: FastImage.cacheControl.immutable,
                   }
                 : Images.noImage
             }

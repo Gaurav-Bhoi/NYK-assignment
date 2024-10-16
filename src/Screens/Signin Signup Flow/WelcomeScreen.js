@@ -77,7 +77,7 @@ const WelcomeScreen = ({navigation}) => {
             {color: Colors.primaryColor, fontSize: Responsive(11)},
           ]}
           onPress={onPressSignup}>
-          {mode !== 'login' ? 'Login' : 'Signup'}
+          {mode !== 'login' ? 'Login' : 'Sign up'}
         </Text>
       </View>
     );

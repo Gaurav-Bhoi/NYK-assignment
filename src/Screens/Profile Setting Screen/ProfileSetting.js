@@ -207,7 +207,7 @@ const ProfileSetting = ({navigation}) => {
                   </View>
                   <View style={styles.s2}>
                     <TextInput1
-                      infoText="user name *"
+                      infoText="User name *"
                       buttonContainerStyle={[styles.buttonContainerStyle]}
                       configureTextChange={handleChange('userName')}
                       textValue={values.userName}
@@ -223,7 +223,7 @@ const ProfileSetting = ({navigation}) => {
                 <View style={styles.infoContainer}>
                   <View style={{width: '100%'}}>
                     <TextInput1
-                      infoText="email *"
+                      infoText="Email *"
                       configureTextChange={handleChange('email')}
                       textValue={values.email}
                       placeHolder={`abc@gmail.com`}
@@ -234,7 +234,7 @@ const ProfileSetting = ({navigation}) => {
                       </Text>
                     )}
                     <TextInput1
-                      infoText="phone *"
+                      infoText="Phone *"
                       configureTextChange={handleChange('phone')}
                       textValue={values.phone}
                       placeHolder={`7028189930`}
@@ -246,7 +246,7 @@ const ProfileSetting = ({navigation}) => {
                       </Text>
                     )}
                     <TextInput1
-                      infoText="birth date *"
+                      infoText="Birth date *"
                       textValue={values.birthDate}
                       placeHolder={'DD/MM/YYYY'}
                       mainContainer={styles.buttonContainerStyle2}
@@ -259,7 +259,7 @@ const ProfileSetting = ({navigation}) => {
                       </Text>
                     )}
                     <TextInput1
-                      infoText="bio"
+                      infoText="Bio"
                       isMultiline
                       configureTextChange={handleChange('desc')}
                       buttonContainerStyle={styles.descStyle}
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
   buttonContainerStyle2: {marginTop: Responsive(10)},
   infoContainer: {
     marginTop: Responsive(15),
-    height: Responsive(550),
+    height: Responsive(500),
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
