@@ -29,8 +29,7 @@ const PostComponent = React.memo(({item}) => {
   }, [handleImagePreload]);
 
   const handleImagePreload = useCallback(() => {
-    const data = item?.imageArray?.map(ele => JSON.parse(ele));
-    FastImage.preload(data);
+    FastImage.preload(item.imageArray);
   }, [item?.imageArray]);
 
   const onViewCallBack = useCallback(
@@ -166,60 +165,52 @@ const styles = StyleSheet.create({
 
 const CorouselImage = React.memo(({newImage, width, index, currIndex}) => {
   const [isError, setIsError] = useState(false);
+  const [imageData, setImageData] = useState(newImage);
   const [openEngagement, setOpenEngagement] = useState(true);
   const [lastTap, setLastTap] = useState(null);
-  const [engagementInfo, setEngagementInfo] = useState({
-    likeData: {likes: Math.ceil(Math.random() * 1000), isLiked: false},
-    unlikeData: {unlikes: 0, isUnliked: false},
-  });
   const timeoutRef = useRef(null);
 
   const onError = useCallback(() => {
     setIsError(true);
   }, []);
 
-  const a = useCallback(() => {
-    if (openEngagement && timeoutRef.current) {
-      timeoutRef.current = setTimeout(() => setOpenEngagement(false), 4000);
-    } else {
-      clearTimeout(timeoutRef.current);
-    }
-  }, [openEngagement]);
-
-  useEffect(() => {
-    a();
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [a]);
-
   const onPressLike = useCallback(() => {
-    setEngagementInfo({
-      ...engagementInfo,
-      likeData: {
-        ...engagementInfo.likeData,
-        likes: engagementInfo.likeData.likes + 1,
-      },
-    });
-  }, [engagementInfo]);
+    if (imageData?.status !== 'liked') {
+      setImageData({
+        ...imageData,
+        status: 'liked',
+        likes: imageData.likes + 1,
+      });
+    } else if (imageData?.status === 'liked') {
+      setImageData({
+        ...imageData,
+        status: undefined,
+        likes: imageData.likes - 1,
+      });
+    }
+  }, [imageData]);
 
   const onPressUnlike = () => {
-    setEngagementInfo({
-      ...engagementInfo,
-      unlikeData: {
-        ...engagementInfo.unlikeData,
-        unlikes: engagementInfo.unlikeData.unlikes + 1,
-      },
-    });
+    if (imageData?.status !== 'disliked') {
+      setImageData({
+        ...imageData,
+        status: 'disliked',
+        dislikes: imageData.dislikes + 1,
+      });
+    } else if (imageData?.status === 'disliked') {
+      setImageData({
+        ...imageData,
+        status: undefined,
+        dislikes: imageData.dislikes - 1,
+      });
+    }
   };
 
   const onPressShare = async () => {
     const shareOptions = {
       title: 'Share via',
       message: 'Check this out!',
-      url: newImage,
+      url: imageData.uri,
       social: Share.Social.WHATSAPP,
     };
     try {
@@ -240,10 +231,8 @@ const CorouselImage = React.memo(({newImage, width, index, currIndex}) => {
       setLastTap(null);
     } else {
       setLastTap(now);
-
       setTimeout(() => {
         setLastTap(null);
-
         setOpenEngagement(!openEngagement);
       }, DOUBLE_TAP_DELAY);
     }
@@ -268,7 +257,7 @@ const CorouselImage = React.memo(({newImage, width, index, currIndex}) => {
             source={
               !isError
                 ? {
-                    uri: JSON.parse(newImage).uri,
+                    uri: imageData.uri,
                     priority: FastImage.priority.high,
                   }
                 : Images.noImage
@@ -276,46 +265,46 @@ const CorouselImage = React.memo(({newImage, width, index, currIndex}) => {
             resizeMode={FastImage.resizeMode.contain}
             onError={onError}
           />
-          {currIndex === index && openEngagement && (
+          {!isError && currIndex === index && openEngagement && (
             <View style={styles.s8}>
               <TouchableOpacity
                 style={[styles.s6, styles.s7]}
                 onPress={onPressLike}>
-                {engagementInfo.likeData.isLiked ? (
-                  <AntDesign
-                    name="like2"
-                    size={Responsive(20)}
-                    color={Colors.white}
-                  />
-                ) : (
+                {imageData.status === 'liked' ? (
                   <AntDesign
                     name="like1"
                     size={Responsive(20)}
                     color={Colors.like}
                   />
+                ) : (
+                  <AntDesign
+                    name="like2"
+                    size={Responsive(20)}
+                    color={Colors.like}
+                  />
                 )}
                 <Text style={{marginLeft: Responsive(5)}}>
-                  {engagementInfo.likeData.likes}
+                  {imageData.likes}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.s6, styles.s7]}
                 onPress={onPressUnlike}>
-                {engagementInfo.unlikeData.isUnliked ? (
-                  <AntDesign
-                    name="dislike2"
-                    size={Responsive(20)}
-                    color={Colors.white}
-                  />
-                ) : (
+                {imageData.status === 'disliked' ? (
                   <AntDesign
                     name="dislike1"
                     size={Responsive(20)}
                     color={Colors.unlike}
                   />
+                ) : (
+                  <AntDesign
+                    name="dislike2"
+                    size={Responsive(20)}
+                    color={Colors.unlike}
+                  />
                 )}
                 <Text style={{marginLeft: Responsive(5)}}>
-                  {engagementInfo.unlikeData.unlikes}
+                  {imageData.dislikes}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.s6} onPress={onPressShare}>

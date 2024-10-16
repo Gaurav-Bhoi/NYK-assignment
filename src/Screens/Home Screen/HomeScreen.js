@@ -34,10 +34,10 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
         disableVirtualization={false}
-        initialNumToRender={1}
-        maxToRenderPerBatch={3}
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
         removeClippedSubviews={true}
-        windowSize={3}
+        windowSize={10}
       />
     </View>
   );
