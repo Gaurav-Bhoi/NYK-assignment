@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,6 +14,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Responsive} from '../../Assets/Responsive';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../Assets/Colors';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {
   infoTextStyle,
   mediumTextStyle,
@@ -24,12 +26,13 @@ import FastImage from 'react-native-fast-image';
 import Screens from '../screenIndex';
 import {AllActions} from '../../Store/actionIndex';
 import Video from 'react-native-video';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const ProfileScreen = ({navigation}) => {
   const profile = useSelector(state => state.user.userDetails);
-  const [videoStatus, setVideoStatus] = useState(false);
+  const [selectedMedia, setSelectedMedia] = useState(undefined);
+  const [showModal, setShowModal] = useState(false);
   const userPosts = useSelector(state => state.user.userPosts);
-  console.log('this is users post', userPosts);
   const dispatch = useDispatch();
   const formattedPosts = useCallback(() => {
     let flattenPosts = userPosts.map(ele => ele.imageArray);
@@ -40,7 +43,10 @@ const ProfileScreen = ({navigation}) => {
       flattenPosts.push({isEmpty: true});
       lastNum += 1;
     }
-    return flattenPosts;
+    const newFlat = flattenPosts.map((ele, index) => {
+      return {...ele, id: index + 1};
+    });
+    return newFlat;
   }, [userPosts]);
 
   const info = (title, value) => {
@@ -80,25 +86,43 @@ const ProfileScreen = ({navigation}) => {
     return <View style={styles.horizontaLine} />;
   };
 
+  const onPressSelectMedia = item => {
+    setShowModal(true);
+    setSelectedMedia(item);
+  };
+
   const renderPosts = ({item}) => {
-    console.log('this is my item', item);
     if (item.isEmpty) {
       return <View style={[styles.emptyContent, styles.content]} />;
     }
 
-    if (item.type === 'image/jpeg') {
-      return (
-        <View style={[styles.content, styles.s6]}>
-          <FastImage
-            source={{uri: item.uri, priority: FastImage.priority.high}}
-            resizeMode={FastImage.resizeMode.contain}
-            style={styles.contentImage}
-          />
-        </View>
-      );
-    } else if (item.type === 'video/mp4') {
-      return <VideoPlayer item={item} />;
-    }
+    return (
+      <TouchableOpacity
+        style={[styles.content, styles.s6]}
+        onPress={() => onPressSelectMedia(item)}>
+        <FastImage
+          source={{uri: item.uri, priority: FastImage.priority.high}}
+          resizeMode={FastImage.resizeMode.contain}
+          style={styles.contentImage}
+        />
+        {item.type === 'video/mp4' && (
+          <View
+            style={{
+              height: '100%',
+              width: '100%',
+              position: 'absolute',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Ionicons
+              name="play-circle-outline"
+              size={Responsive(30)}
+              color={Colors.white}
+            />
+          </View>
+        )}
+      </TouchableOpacity>
+    );
   };
 
   const flHeader = () => {
@@ -162,6 +186,38 @@ const ProfileScreen = ({navigation}) => {
     );
   };
 
+  const renderMedia = () => {
+    if (!!selectedMedia) {
+      if (selectedMedia.type === 'video/mp4') {
+        return <VideoPlayer item={selectedMedia} />;
+      } else {
+        return (
+          <FastImage
+            source={{uri: selectedMedia.uri, priority: FastImage.priority.high}}
+            resizeMode={FastImage.resizeMode.contain}
+            style={{height: '100%', width: '100%'}}
+          />
+        );
+      }
+    }
+  };
+
+  const renderModal = () => {
+    return (
+      <View style={styles.centeredView}>
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => setShowModal(false)}>
+            <AntDesign
+              name="closecircle"
+              size={Responsive(20)}
+              color={Colors.white}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{flex: 1}}>{renderMedia()}</View>
+      </View>
+    );
+  };
   return (
     <CommonScreen mainContainerStyle={styles.mainContainer}>
       <HeaderComponent isHeader={true} screenName={'Profile'} isBackButton />
@@ -233,6 +289,9 @@ const ProfileScreen = ({navigation}) => {
           />
         </View>
       </View>
+      <Modal animationType="slide" visible={showModal}>
+        {renderModal()}
+      </Modal>
     </CommonScreen>
   );
 };
@@ -240,6 +299,14 @@ const ProfileScreen = ({navigation}) => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
+  header: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: Responsive(20),
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  centeredView: {backgroundColor: '#0A0404', flex: 1},
   editIconContainer: {
     backgroundColor: Colors.white,
     height: Responsive(20),
@@ -338,24 +405,16 @@ const styles = StyleSheet.create({
 
 const VideoPlayer = memo(({item}) => {
   const videoRef = useRef(null);
-  const [playingVideoIds, setPlayingVideoIds] = useState([]);
-
-  const onViewableItemsChanged = ({viewableItems}) => {
-    const visibleIds = viewableItems.map(item => item.item.id);
-    setPlayingVideoIds(visibleIds); // Play videos that are visible
-  };
   return (
-    <View style={[styles.content, styles.s6]}>
+    <View style={[styles.content]}>
       <Video
         source={{uri: item.uri}}
-        controls={false}
+        controls={true}
         repeat
         ref={videoRef}
-        paused={true}
+        paused={false}
         resizeMode="contain"
-        style={styles.contentImage}
-        onViewableItemsChanged={onViewableItemsChanged}
-        viewabilityConfig={{itemVisiblePercentThreshold: 50}}
+        style={{flex: 1}}
         removeClippedSubviews={true}
       />
     </View>

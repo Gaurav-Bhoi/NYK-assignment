@@ -65,6 +65,7 @@ const CreatePostScreen = ({navigation}) => {
     const newPickResult = pickResult.map((ele, index) => {
       return {...ele, id: index + 1};
     });
+    console.log('this is new pick', newPickResult);
     setMediaData(newPickResult);
   };
 
