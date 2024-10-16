@@ -27,6 +27,7 @@ const CreatePostScreen = ({navigation}) => {
   const [submitPressed, setSubmitPressed] = useState(false);
   const [details, setDetails] = useState({postTitle: '', postDesc: ''});
   const [mediaData, setMediaData] = useState([]);
+  console.log('this is media data', mediaData);
   const userDetails = useSelector(state => state.user.userDetails);
   const [currIndex, setCurrIndex] = useState(0);
   const [videoStatus, setVideoStatus] = useState(false);
@@ -61,7 +62,10 @@ const CreatePostScreen = ({navigation}) => {
       allowMultiSelection: true,
       type: [types.video, types.images],
     });
-    setMediaData(pickResult);
+    const newPickResult = pickResult.map((ele, index) => {
+      return {...ele, id: index + 1};
+    });
+    setMediaData(newPickResult);
   };
 
   const renderMedia = ({item}) => {
@@ -193,7 +197,7 @@ const CreatePostScreen = ({navigation}) => {
                         viewabilityConfig={viewConfigRef.current}
                         onViewableItemsChanged={onViewCallBack}
                         renderItem={renderMedia}
-                        keyExtractor={Math.random}
+                        keyExtractor={item => item.id.toString()}
                         showsHorizontalScrollIndicator={false}
                         style={styles.flatlistStyle}
                         contentContainerStyle={styles.contentContStyle}

@@ -29,6 +29,7 @@ const ProfileScreen = ({navigation}) => {
   const profile = useSelector(state => state.user.userDetails);
   const [videoStatus, setVideoStatus] = useState(false);
   const userPosts = useSelector(state => state.user.userPosts);
+  console.log('this is users post', userPosts);
   const dispatch = useDispatch();
   const formattedPosts = useCallback(() => {
     let flattenPosts = userPosts.map(ele => ele.imageArray);
@@ -223,6 +224,7 @@ const ProfileScreen = ({navigation}) => {
         <View>
           <FlatList
             data={formattedPosts(userPosts)}
+            keyExtractor={item => item.id.toString()}
             renderItem={renderPosts}
             numColumns={3}
             ListHeaderComponent={flHeader}
