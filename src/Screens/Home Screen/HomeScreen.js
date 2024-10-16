@@ -29,7 +29,7 @@ const HomeScreen = () => {
       <FlatList
         data={updatedPosts}
         renderItem={({item}) => <RenderItem item={item} />}
-        keyExtractor={Math.random}
+        keyExtractor={item => item.id.toString()}
         contentContainerStyle={styles.mainContainerStyle}
         showsVerticalScrollIndicator={false}
         onEndReached={onEndReached}
