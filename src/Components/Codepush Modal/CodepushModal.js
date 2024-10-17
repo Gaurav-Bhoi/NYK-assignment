@@ -5,85 +5,116 @@ import {
   Platform,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import CodePush from 'react-native-code-push';
 import {checkVersion} from 'react-native-check-version';
 import FastImage from 'react-native-fast-image';
 import {Images} from '../../Assets/ImageIndex';
+import {Responsive} from '../../Assets/Responsive';
+import Colors from '../../Assets/Colors';
+import {regularTextStyle} from '../../CommonStyles/CommonStyles';
+import Fonts from '../../Assets/Fonts';
 
 const CodepushModal = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [startUpadte, setStartUpadte] = useState(false);
-  const [updateType, setUpdateType] = useState(1);
+  const [codepushStatus, setCodepushStatus] = useState(
+    'checking for updates...',
+  );
 
   useEffect(() => {
     updateCheck();
+  }, [updateCheck]);
+
+  const updateCheck = useCallback(async () => {
+    try {
+      const codePushRes = await CodePush.checkForUpdate();
+      if (!!codePushRes) {
+        downloadAndInstallUpdate();
+      }
+    } catch {
+      ToastAndroid.showWithGravityAndOffset(
+        'Failed to install latest version of app',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
+    } finally {
+      setIsVisible(false);
+    }
   }, []);
 
-  const updateCheck = async () => {
-    const version = await checkVersion();
-    console.log('this is version', version);
-    CodePush.checkForUpdate()
-      .then(async res => {
-        console.log('this is res', JSON.stringify(res));
-        if (!!res && !res?.failedInstall) {
-          setIsVisible(true);
-          setUpdateType(2);
-        } else if (version?.needsUpdate) {
-          setIsVisible(true);
-          setUpdateType(1);
-        }
-      })
-      .catch(e => console.log('this is e', e));
-  };
+  const downloadAndInstallUpdate = async () => {
+    try {
+      CodePush.sync(
+        {
+          installMode: CodePush.InstallMode.IMMEDIATE,
+          mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+        },
+        status => {
+          switch (status) {
+            case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
+              setCodepushStatus('Downloading update ');
+              break;
+            case CodePush.SyncStatus.INSTALLING_UPDATE:
+              setCodepushStatus('Installing update...');
+              break;
+            case CodePush.SyncStatus.UPDATE_INSTALLED:
+              setCodepushStatus('Update installed');
+              break;
+            default:
+              break;
+          }
+        },
 
-  const onPressUpdate = () => {
-    if (updateType === 1) {
-      // Linking.openURL('https://quickreviews.click/apps')
-      BackHandler.exitApp();
-      const url =
-        Platform.OS === 'android'
-          ? 'https://play.google.com/store/apps/details?id=reviewApp.dev'
-          : 'https://apps.apple.com/in/app/id6449814972';
-      Linking.openURL(url).then(() => {});
+        ({receivedBytes, totalBytes}) => {
+          const update = Math.floor((receivedBytes / totalBytes) * 100);
+
+          setProgress(update);
+        },
+        () => {},
+      );
+    } catch (error) {
+      console.error('Error installing update:', error);
+    } finally {
+      setIsVisible(false);
     }
-
-    if (updateType === 2) {
-      setStartUpadte(true);
-      updateApp();
-    }
-  };
-
-  const updateApp = () => {
-    CodePush.sync(
-      {installMode: CodePush.InstallMode.IMMEDIATE},
-      data => {
-        if (
-          data === CodePush.SyncStatus.UPDATE_INSTALLED ||
-          data === CodePush.SyncStatus.UP_TO_DATE
-        ) {
-          setIsVisible(false);
-          setStartUpadte(false);
-        }
-      },
-      ({receivedBytes, totalBytes}) => {
-        setProgress(Math.floor((receivedBytes / totalBytes) * 100));
-      },
-      () => {},
-    );
   };
 
   return (
-    <Modal visible={true}>
+    <Modal visible={isVisible}>
       <View style={styles.mainContainer}>
         <FastImage
           style={styles.gif}
           source={Images.updateGif}
           resizeMode={FastImage.resizeMode.cover}
         />
+        <View style={styles.updateContainer}>
+          <AnimatedCircularProgress
+            size={Responsive(80)}
+            width={Responsive(3)}
+            backgroundWidth={Responsive(6)}
+            fill={progress}
+            tintColor={Colors.primaryColor}
+            backgroundColor={Colors.white}>
+            {fill => (
+              <FastImage
+                style={styles.appLogo}
+                source={Images.nykWhiteLogo}
+                resizeMode={FastImage.resizeMode.cover}
+              />
+            )}
+          </AnimatedCircularProgress>
+          <Text style={[styles.status]}>
+            {codepushStatus}
+            {codepushStatus === 'Downloading update: ' ? `${progress} %` : ''}
+          </Text>
+        </View>
       </View>
     </Modal>
   );
@@ -95,5 +126,19 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
+  status: {
+    marginTop: Responsive(8),
+    fontFamily: Fonts.regular,
+    color: Colors.white,
+    fontSize: Responsive(12),
+  },
   gif: {flex: 1},
+  updateContainer: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: Responsive(50),
+  },
+  appLogo: {height: Responsive(60), width: Responsive(60)},
 });

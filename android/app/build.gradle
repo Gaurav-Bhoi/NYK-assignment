@@ -84,8 +84,8 @@ android {
         applicationId "com.nyk_assignment"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "2.0"
+        versionCode 1
+        versionName "1.0"
     }
     signingConfigs {
         debug {
@@ -106,10 +106,12 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            resValue "string", "CODEPUSH_KEY", '"a_Mtl9C3dbcsCU04nThNTFqS6w87Q16WDzgoqw"'
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
+            resValue "string", "CODEPUSH_KEY", '"a_Mtl9C3dbcsCU04nThNTFqS6w87Q16WDzgoqw"'
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
