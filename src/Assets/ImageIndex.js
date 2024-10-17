@@ -6,6 +6,7 @@ export const Images = {
   nykWhiteLogo: require('../../assets/Images/NYKwhite.png'),
   nykBlackLogo: require('../../assets/Images/NYKblack.png'),
   noImage: require('../../assets/Images/Image_not_available.png'),
+  updateGif: require('../../assets/Images/updateGif.gif'),
   avatars: [
     require('../../assets/Images/avatar1.png'),
     require('../../assets/Images/avatar2.png'),

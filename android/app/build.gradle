@@ -106,10 +106,12 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            resValue "string", "CODEPUSH_KEY", '"a_Mtl9C3dbcsCU04nThNTFqS6w87Q16WDzgoqw"'
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
+            resValue "string", "CODEPUSH_KEY", '"a_Mtl9C3dbcsCU04nThNTFqS6w87Q16WDzgoqw"'
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -121,6 +123,8 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.android:facebook-android-sdk:latest.release")
+    implementation("com.facebook.fresco:animated-webp:2.0.0")
+    implementation("com.facebook.fresco:webpsupport:2.0.0")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

@@ -127,24 +127,23 @@ const WelcomeScreen = ({navigation}) => {
     try {
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
-      setOpenPopup(false);
-      dispatch({
-        type: AllActions.SET_USER_DETAILS,
-        payload: {
-          userName: response.data.user.name,
-          email: response.data.user.email,
-          profileType: 'image',
-          profilePic: response.data.user.photo,
-        },
-      });
-      dispatch({type: AllActions.SET_LOGIN_STATUS, payload: true});
+      Alert.alert(JSON.stringify(response));
+      if (response.type === 'success') {
+        setOpenPopup(false);
+        dispatch({
+          type: AllActions.SET_USER_DETAILS,
+          payload: {
+            userName: response.data.user.name,
+            email: response.data.user.email,
+            profileType: 'image',
+            profilePic: response.data.user.photo,
+          },
+        });
+        dispatch({type: AllActions.SET_LOGIN_STATUS, payload: true});
 
-      navigation.navigate(Screens.TabNavigation, {
-        screen: Screens.SignupRoute,
-      });
-
-      if (response) {
-      } else {
+        navigation.navigate(Screens.TabNavigation, {
+          screen: Screens.SignupRoute,
+        });
       }
     } catch (error) {
       if (error) {
