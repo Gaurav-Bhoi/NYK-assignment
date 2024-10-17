@@ -143,7 +143,6 @@ const WelcomeScreen = ({navigation}) => {
       const response = await GoogleSignin.signIn();
 
       if (response.type === 'success') {
-        setOpenPopup(false);
         dispatch({
           type: AllActions.SET_USER_DETAILS,
           payload: {
@@ -154,10 +153,10 @@ const WelcomeScreen = ({navigation}) => {
           },
         });
         dispatch({type: AllActions.SET_LOGIN_STATUS, payload: true});
-
         navigation.navigate(Screens.TabNavigation, {
           screen: Screens.SignupRoute,
         });
+        setOpenPopup(false);
       }
     } catch (error) {
       if (error) {
