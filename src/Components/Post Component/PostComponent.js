@@ -250,7 +250,7 @@ const CorouselImage = React.memo(({newImage, width, index, currIndex}) => {
           ]}>
           <NewFastImage
             indicatorProps={{
-              size: 80,
+              size: Responsive(50),
               borderWidth: 0,
               color: Colors.primaryColor,
             }}
