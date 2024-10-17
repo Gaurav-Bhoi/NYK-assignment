@@ -1,4 +1,12 @@
-import {Alert, Image, StyleSheet, Text, ToastAndroid, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  View,
+} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import BottomModal from '../../Components/Bottom Modal/BottomModal';
 import Screens from '../screenIndex';
@@ -26,6 +34,7 @@ const WelcomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const loginStatus = useSelector(state => state.auth.isUserLoggedin);
   const [mode, setMode] = useState('login');
+  const [loading, setIsLoading] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
@@ -103,7 +112,11 @@ const WelcomeScreen = ({navigation}) => {
   const renderGoogleIcon = () => {
     return (
       <View style={styles.iconContainer}>
-        <Image source={Images.googleLogo} style={styles.logoContainer} />
+        {loading ? (
+          <ActivityIndicator size={'small'} color={Colors.primaryColor} />
+        ) : (
+          <Image source={Images.googleLogo} style={styles.logoContainer} />
+        )}
       </View>
     );
   };
@@ -125,9 +138,10 @@ const WelcomeScreen = ({navigation}) => {
 
   const onPressGoogleSignin = async () => {
     try {
+      setIsLoading(true);
       await GoogleSignin.hasPlayServices();
       const response = await GoogleSignin.signIn();
-      Alert.alert(JSON.stringify(response));
+
       if (response.type === 'success') {
         setOpenPopup(false);
         dispatch({
@@ -156,6 +170,8 @@ const WelcomeScreen = ({navigation}) => {
         }
       } else {
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -220,8 +236,9 @@ const WelcomeScreen = ({navigation}) => {
         {renderOrComponent()}
 
         <Button1
-          title="Login with Google"
+          title={loading ? '' : 'Login with Google'}
           buttonContainerStyle={styles.buttonContainerStyle2}
+          isDisabled={loading}
           isImage={true}
           ImageComponent={renderGoogleIcon}
           configureOnPress={onPressGoogleSignin}
