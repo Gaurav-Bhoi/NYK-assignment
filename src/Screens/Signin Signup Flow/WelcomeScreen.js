@@ -159,8 +159,6 @@ const WelcomeScreen = ({navigation}) => {
         setOpenPopup(false);
       }
     } catch (error) {
-      console.log('this is e', error);
-      Alert.alert(JSON.stringify(error));
       if (error) {
         switch (error.code) {
           case statusCodes.IN_PROGRESS:
