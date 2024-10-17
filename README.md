@@ -1,79 +1,38 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+![nykred](https://github.com/user-attachments/assets/7da7f069-7cd8-42b5-bc02-a447014f2103)
 
-# Getting Started
+# NYK Social Media App
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+This is a social media app. App is static backend is not attched to it. Appealing about this app is optimized feed post. this app is currently configured only in android but soon it will be available in iOS as well.
 
-## Step 1: Start the Metro Server
+## Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- google and facebook login.
+- Optimized feeds of muliple images in-list of feeds.
+- photos and videos upload support for user.
+- Microsoft Appcenter Codepush to force update application.
+- Interactive UI.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## How to Build apk of this app
 
-```bash
-# using npm
-npm start
+Github actions workflow_dispatch is placed in order to create apk so you don't have to pull repo and manually create build apk. follow this steps in order to create apk.
 
-# OR using Yarn
-yarn start
-```
+- goto Actions tab in home page in top section.
+- hit CREATE ANDROID BUILD (from all workflows)
+- run work flow (from top bar in workflow event list)
+- select branch and hit Run Workflow
+- after success you get zip file in artifacts of that workflow summery in bottom.
+- download, extract run and enjoy.
 
-## Step 2: Start your Application
+if you have problem understanding instructions mentioned above, follow this video down below
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+https://github.com/user-attachments/assets/83cea7d5-a414-48d1-9ac8-26ec9030b3a5
 
-### For Android
+## Screenshots
 
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+![Screenshot_20241017-204001_NYK_assignment](https://github.com/user-attachments/assets/5a145241-0c22-4039-8e8f-20c3bae14900)
+![Screenshot_20241017-204218_NYK_assignment](https://github.com/user-attachments/assets/fb3c7b63-5c4c-43fc-9cf5-32c33c643d1a)
+![Screenshot_20241017-204232_NYK_assignment](https://github.com/user-attachments/assets/2e6a00ec-3a66-499f-879b-4171a6926801)
+![Screenshot_20241017-204317_NYK_assignment](https://github.com/user-attachments/assets/d8b1f8ae-84cb-4050-923a-4ff18baefeee)
+![Screenshot_20241017-204426_NYK_assignment](https://github.com/user-attachments/assets/3c79c8a3-5b9d-4ec6-b46e-16958bc775b1)
+![Screenshot_20241017-204419_NYK_assignment](https://github.com/user-attachments/assets/aa294e90-e8f1-448a-90dc-c51ef28bce5f)
+![Screenshot_20241017-204334_NYK_assignment](https://github.com/user-attachments/assets/5146040c-41c0-4de6-aaf6-0c9fa11339b8)
