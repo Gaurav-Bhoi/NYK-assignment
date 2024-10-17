@@ -18,6 +18,8 @@ import FastImage from 'react-native-fast-image';
 import PaginationDot from 'react-native-insta-pagination-dots';
 import {Images} from '../../Assets/ImageIndex';
 import Share from 'react-native-share';
+import {createImageProgress} from 'react-native-image-progress';
+const NewFastImage = createImageProgress(FastImage);
 
 const PostComponent = React.memo(({item}) => {
   const [currIndex, setCurrIndex] = useState(0);
@@ -246,7 +248,12 @@ const CorouselImage = React.memo(({newImage, width, index, currIndex}) => {
             {position: 'absolute', width: width, backgroundColor: 'red'},
             styles.s5,
           ]}>
-          <FastImage
+          <NewFastImage
+            indicatorProps={{
+              size: 80,
+              borderWidth: 0,
+              color: Colors.primaryColor,
+            }}
             style={[
               {
                 width: width,
