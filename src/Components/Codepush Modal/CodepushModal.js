@@ -20,7 +20,7 @@ import {regularTextStyle} from '../../CommonStyles/CommonStyles';
 import Fonts from '../../Assets/Fonts';
 
 const CodepushModal = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [progress, setProgress] = useState(0);
   const [codepushStatus, setCodepushStatus] = useState(
     'checking for updates...',
@@ -33,10 +33,12 @@ const CodepushModal = () => {
   const updateCheck = useCallback(async () => {
     try {
       const codePushRes = await CodePush.checkForUpdate();
+
       if (!!codePushRes) {
         downloadAndInstallUpdate();
       }
-    } catch {
+    } catch (e) {
+      setIsVisible(false);
       ToastAndroid.showWithGravityAndOffset(
         'Failed to install latest version of app',
         ToastAndroid.LONG,
@@ -44,8 +46,6 @@ const CodepushModal = () => {
         25,
         50,
       );
-    } finally {
-      setIsVisible(false);
     }
   }, []);
 
@@ -55,19 +55,29 @@ const CodepushModal = () => {
         {
           installMode: CodePush.InstallMode.IMMEDIATE,
           mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+          gnoreFailedUpdates: true,
         },
         status => {
           switch (status) {
             case CodePush.SyncStatus.DOWNLOADING_PACKAGE:
-              setCodepushStatus('Downloading update ');
+              setCodepushStatus('Downloading update: ');
               break;
             case CodePush.SyncStatus.INSTALLING_UPDATE:
               setCodepushStatus('Installing update...');
               break;
             case CodePush.SyncStatus.UPDATE_INSTALLED:
               setCodepushStatus('Update installed');
+              setIsVisible(false);
               break;
             default:
+              setIsVisible(false);
+              ToastAndroid.showWithGravityAndOffset(
+                'No updates available !',
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                50,
+              );
               break;
           }
         },
@@ -79,11 +89,7 @@ const CodepushModal = () => {
         },
         () => {},
       );
-    } catch (error) {
-      console.error('Error installing update:', error);
-    } finally {
-      setIsVisible(false);
-    }
+    } catch (error) {}
   };
 
   return (
@@ -98,8 +104,9 @@ const CodepushModal = () => {
           <AnimatedCircularProgress
             size={Responsive(80)}
             width={Responsive(3)}
-            backgroundWidth={Responsive(6)}
+            backgroundWidth={Responsive(8)}
             fill={progress}
+            rotation={0}
             tintColor={Colors.primaryColor}
             backgroundColor={Colors.white}>
             {fill => (
